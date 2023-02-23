@@ -47,6 +47,7 @@ const FilterBar = (props) => {
     const [reload, setReload] = React.useState(1);
     const [data, setData] = React.useState([]);
     const [search, setSearch] = React.useState("");
+    
 
     React.useEffect(() => {
         (async () => {

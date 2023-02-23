@@ -29,6 +29,10 @@ const CategoriesEdit = (props) => {
     const [data, setData] = useState(null);
     const classes = useStyles(props);
 
+    const sendToPreviousURL = () => {
+        navigate("/product_attribute")
+    }
+
     useEffect(() => {
         (async () =>
             await $host.get("dashboard/categories/")
@@ -61,7 +65,7 @@ const CategoriesEdit = (props) => {
 
     return (
         <Container>
-            <Backlink>Категории</Backlink>
+            <Backlink onClick={() => sendToPreviousURL()}>Категории</Backlink>
             <PageHeader title="Создать новую Категории" />
             <div>
                 <Card>

@@ -25,6 +25,10 @@ const CategoriesEdit = (props) => {
     const params = useParams();
     const [data, setData] = useState(null);
     const classes = useStyles(props);
+ 
+    const sendToPreviousURL = () => {
+        navigate("/product_attribute")
+    }
 
     useEffect(() => {
         (async () =>
@@ -52,7 +56,7 @@ const CategoriesEdit = (props) => {
 
     return (
         <Container>
-            <Backlink>Аттрибуты</Backlink>
+            <Backlink onClick={() => sendToPreviousURL()}>Аттрибуты</Backlink>
             <PageHeader title="Редактировать" />
             <div>
                 <Card>
