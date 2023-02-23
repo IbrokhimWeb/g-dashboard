@@ -2,6 +2,7 @@ import { Button, Card, Checkbox, makeStyles, MenuItem, TextField } from "@materi
 import { Autocomplete, Backlink } from "@saleor/macaw-ui";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import CardSpacer from "../../components/CardSpacer";
 import CardTitle from "../../components/CardTitle";
 import Container from "../../components/Container";
@@ -21,6 +22,7 @@ const useStyles = makeStyles(
 
 
 const CategoriesAdd = (props) => {
+    const navigate = useNavigate()
     const [file, setFile] = useState(null)
     const categories = useSelector((state) => state.categories);
     const classes = useStyles(props);
@@ -36,16 +38,15 @@ const CategoriesAdd = (props) => {
         setNewData(prevData => ({ ...prevData, [name]: value }))
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         const formData = new FormData();
         formData.append('name', newData.name);
         formData.append('slug', newData.slug);
         formData.append("description", newData.description);
         formData.append("is_active", newData.is_active);
         formData.append("background_image", file);
-        const request = new XMLHttpRequest();
-        request.open("POST", "https://yruoebgair.tk/dashboard/categories/");
-        request.send(formData);
+        const res = await $host.post(`/dashboard/categories/`, formData)
+        res?.statusText ? navigate("/categories") : alert("Nimadir hato ketdi");
     }
 
     return (

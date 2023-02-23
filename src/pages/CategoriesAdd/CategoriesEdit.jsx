@@ -2,7 +2,7 @@ import { Button, Card, Checkbox, makeStyles, MenuItem, TextField } from "@materi
 import { Autocomplete, Backlink } from "@saleor/macaw-ui";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import CardSpacer from "../../components/CardSpacer";
 import CardTitle from "../../components/CardTitle";
 import Container from "../../components/Container";
@@ -22,6 +22,7 @@ const useStyles = makeStyles(
 
 
 const CategoriesEdit = (props) => {
+    const navigate = useNavigate()
     const params = useParams();
     const [file, setFile] = useState(null)
     const categories = useSelector((state) => state.categories);
@@ -40,17 +41,23 @@ const CategoriesEdit = (props) => {
         setData(prevData => ({ ...prevData, [name]: value }))
     }
 
-    const handleEdit = () => {
+
+    const handleEdit = async () => {
         const formData = new FormData();
         formData.append('name', data.name);
         formData.append('slug', data.slug);
         formData.append("description", data.description);
         formData.append("is_active", data.is_active);
         formData.append("background_image", file);
-        const request = new XMLHttpRequest();
-        request.open("POST", "https://yruoebgair.tk/dashboard/categories/");
-        request.send(formData);
-    }
+
+
+        const res = await $host.patch(`/dashboard/categories/${params?.id}/`, formData)
+        res?.statusText ? navigate("/categories") : alert("Nimadir hato ketdi");
+
+
+    };
+
+
 
     return (
         <Container>
@@ -64,8 +71,9 @@ const CategoriesEdit = (props) => {
                         <TextField fullWidth placeholder={"slug категории"} name="slug" value={data?.slug} onChange={(e) => handleChange(e.target)} />
                         <FormSpacer />
                         <TextField multiline fullWidth placeholder="description категории" name="description" value={data?.description} onChange={(e) => handleChange(e.target)} />
-                        <Checkbox checked={data?.is_active} onChange={(e) => setData(prev => ({ ...prev, is_active: e.target.checked }))} />
+                        <Checkbox defaultChecked={true} checked={data?.is_active} onChange={(e) => setData(prev => ({ ...prev, is_active: e.target.checked }))} />
                         <Button variant="contained" component="label">Upload File<input type="file" onChange={(e) => setFile(e.target.files[0])} multiple hidden /></Button>
+                        <img style={{ borderRadius: "10px", marginTop: "10px", marginLeft: "20px", marginBottom: "-30px" }} width={70} src={data?.background_image} alt="" />
                     </div>
                 </Card>
                 <CardSpacer />
