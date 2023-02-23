@@ -56,7 +56,7 @@ const FilterBar = (props) => {
     React.useEffect(() => {
         (async () => {
             try {
-                const res = await $host.get(`dashboard/product-inventors/`);
+                const res = await $host.get(`/dashboard/stocks/`);
                 setData(res.data.results);
             } catch (error) {
                 console.error(error);
@@ -77,7 +77,7 @@ const FilterBar = (props) => {
         <Container>
 
             <PageHeader
-                title={"Инверторь продуктов"}
+                title={"Акции"}
             >
                 <Button
                     variant="primary"
@@ -86,34 +86,29 @@ const FilterBar = (props) => {
                     // href={href}
                     style={{ width: "100%" }}
                 >
-                    Создать Инверторь продуктов
+                    Создать акции
                 </Button>
             </PageHeader>
             <Card>
                 <div className={classes.headerBorder}>
                     <div className={classes.header}>
-                        <h3 className={classes.headerTitle}>Все Инверторь продуктов</h3>
+                        <h3 className={classes.headerTitle}>Все акции</h3>
                     </div>
                     <div className={classes.headerSearch}>
                         <TextField
                             className={classes.headerInput}
-                            inputProps={{ placeholder: "Поиск инверторь продуктов" }}
+                            inputProps={{ placeholder: "Поиск акции" }}
                             onChange={(e) => setSearch(e.target.value)}
                         />
                     </div>
                     <TableContainer className={classes.table}>
                         <TableHead>
                             <TableRow >
-                                <TableCell style={{ textAlign: "center" }}>#</TableCell>
-                                <TableCell> sku </TableCell>
-                                <TableCell>upc </TableCell>
-                                <TableCell>product.name </TableCell>
-                                <TableCell>brand.name </TableCell>
-                                <TableCell>price </TableCell>
-                                <TableCell>sale_price </TableCell>
-                                <TableCell>created_at </TableCell>
-                                <TableCell>updated_at </TableCell>
-                                <TableCell>Deystvya</TableCell>
+                                <TableCell>#</TableCell>
+                                <TableCell>Images</TableCell>
+                                <TableCell >created_at</TableCell>
+                                <TableCell style={{ textAligin: "center" }}>updated_at  </TableCell>
+                                <TableCell style={{ textAligin: "center" }}>Deystvya  </TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -121,23 +116,18 @@ const FilterBar = (props) => {
                                 ?.filter((item) => {
                                     return search?.toLowerCase() === ""
                                         ? item
-                                        : item.product.name?.toLowerCase().includes(search.toLowerCase()) ||
+                                        : item.name?.toLowerCase().includes(search.toLowerCase()) ||
                                         String(item.id)
                                             ?.toLowerCase()
                                             .includes(search.toLowerCase());
                                 })
-                                .map(({ id, sku, upc, product, brand, price, sale_price, updated_at, created_at }) =>
+                                .map(({ id, images, created_at, updated_at }) =>
                                     <TableRow key={id}>
-                                        <TableCell>
-                                            <Checkbox />
+                                        <TableCell> {id} </TableCell>
+                                        <TableCell >
+                                            <img height={45} src={images} alt="" />
                                         </TableCell>
-                                        <TableCell> {sku} </TableCell>
-                                        <TableCell> {upc} </TableCell>
-                                        <TableCell> {product.name} </TableCell>
-                                        <TableCell> {brand.name} </TableCell>
-                                        <TableCell> {price} </TableCell>
-                                        <TableCell> {sale_price} </TableCell>
-                                        <TableCell> {created_at} </TableCell>
+                                        <TableCell style={{ width: "акции0%" }} > {created_at} </TableCell>
                                         <TableCell> {updated_at} </TableCell>
                                         <TableCell
                                             style={{

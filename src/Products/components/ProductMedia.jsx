@@ -77,7 +77,7 @@ const FilterBar = (props) => {
         <Container>
 
             <PageHeader
-                title={"Товары"}
+                title={"Медиа"}
             >
                 <Button
                     variant="primary"
@@ -86,18 +86,18 @@ const FilterBar = (props) => {
                     // href={href}
                     style={{ width: "100%" }}
                 >
-                    Создать товар
+                    Создать Медиа
                 </Button>
             </PageHeader>
             <Card>
                 <div className={classes.headerBorder}>
                     <div className={classes.header}>
-                        <h3 className={classes.headerTitle}>Все товары</h3>
+                        <h3 className={classes.headerTitle}>Все Медиа</h3>
                     </div>
                     <div className={classes.headerSearch}>
                         <TextField
                             className={classes.headerInput}
-                            inputProps={{ placeholder: "Поиск товаров" }}
+                            inputProps={{ placeholder: "Поиск медиа" }}
                             onChange={(e) => setSearch(e.target.value)}
                         />
                     </div>
@@ -108,7 +108,6 @@ const FilterBar = (props) => {
                                 <TableCell >Images</TableCell>
                                 <TableCell>created_at</TableCell>
                                 <TableCell>updated_at</TableCell>
-                                {/* <TableCell style={{ textAligin: "center" }}>Действия</TableCell> */}
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -124,29 +123,11 @@ const FilterBar = (props) => {
                                 .map(({ id, img_url, created_at, updated_at }) =>
                                     <TableRow key={id}>
                                         <TableCell> {id} </TableCell>
-                                        <TableCell>
+                                        <TableCell style={{ width: "15%" }}>
                                             <img height={40} src={img_url} alt="" />
                                         </TableCell>
-                                        <TableCell>{created_at}</TableCell>
-                                        <TableCell>{updated_at} </TableCell>
-                                        {/* <TableCell
-                                            style={{
-                                                width: "100%",
-                                                display: "flex",
-                                                alignItems: "center",
-                                                gap: "5px",
-                                                justifyContent: "center"
-                                            }}
-                                        >
-                                            <ion-icon
-                                                onClick={() => { }}
-                                                name="create-outline"
-                                            ></ion-icon>
-                                            <ion-icon
-                                                onClick={() => handleRemuve(id)}
-                                                name="trash-outline"
-                                            ></ion-icon>
-                                        </TableCell> */}
+                                        <TableCell style={{ width: "50%" }}>{created_at}</TableCell>
+                                        <TableCell style={{ width: "50%" }}>{updated_at} </TableCell>
                                     </TableRow>
                                 )}
                         </TableBody>

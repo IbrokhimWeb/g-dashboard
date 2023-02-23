@@ -20,12 +20,7 @@ const MenuStructure = () => {
             label: "Каталог",
             id: "catalog",
             children: [
-                {
-                    ariaLabel: "products",
-                    label: "Товары",
-                    id: "products",
-                    url: "/products",
-                },
+
                 {
                     ariaLabel: "categories",
                     label: "Категории",
@@ -33,17 +28,23 @@ const MenuStructure = () => {
                     id: "categories"
                 },
                 {
-                    ariaLabel: "sliders",
-                    label: "Sliders",
+                    ariaLabel: "Слайдеры",
+                    label: "Слайдеры",
                     url: "/sliders",
                     id: "sliders"
                 },
                 {
-                    ariaLabel: "brands",
-                    label: "Brands",
+                    ariaLabel: "Бренды",
+                    label: "Бренды",
                     url: "/brands",
                     id: "brands"
                 },
+                // {
+                //     ariaLabel: "stocks",
+                //     label: "stocks",
+                //     url: "/stocks",
+                //     id: "stocks"
+                // },
 
             ]
         },
@@ -54,31 +55,86 @@ const MenuStructure = () => {
             iconSrc: ordersIcon,
             children: [
                 {
+                    ariaLabel: "products",
+                    label: "Товары",
+                    id: "products",
+                    url: "/products",
+                },
+                {
                     ariaLabel: "orders",
                     label: "Атрибут продукта",
                     id: "orders",
                     url: "/product_attribute",
                 },
                 {
-                    ariaLabel: "installments",
-                    label: "Рассрочки",
-                    id: "installments",
-                    url: "/installments-orders"
-                }
+                    ariaLabel: "Атрибут продуктов",
+                    label: "Атрибут продуктов",
+                    id: "product-inventors",
+                    url: "/product-inventors"
+                },
+
+
+
+
+
+
+
+
+
+
+
+                {
+                    ariaLabel: "Медиа",
+                    label: "Медиа",
+                    id: "product-media",
+                    url: "/product-media"
+                },
+                {
+                    ariaLabel: "Тип атрибутов продукта",
+                    label: "Тип атрибутов продукта",
+                    id: "product-type-attribute",
+                    url: "/product-type-attribute"
+                },
+                {
+                    ariaLabel: "Тип продуктов",
+                    label: "Тип продуктов",
+                    id: "product-type",
+                    url: "/product-type"
+                },
+                // {
+                //     ariaLabel: "product-stocks",
+                //     label: "product-stocks",
+                //     id: "product-stocks",
+                //     url: "/product-stocks"
+                // },
+
             ]
         },
         {
-            ariaLabel: "customers",
-            label: "Клиенты",
-            id: "customers",
-            url: "/customers",
-            iconSrc: customerIcon
+            ariaLabel: "users",
+            label: "Пользователи",
+            id: "users",
+            iconSrc: customerIcon,
+            children: [
+                {
+                    ariaLabel: "Пользователи",
+                    label: "Пользователи",
+                    id: "Пользователи",
+                    url: "/users",
+                },
+                {
+                    ariaLabel: "Заказы",
+                    label: "Заказы",
+                    id: "Заказы",
+                    url: "/checkout",
+                },
+            ]
         },
         {
-            ariaLabel: "aksiya",
-            label: "Aksiya",
+            ariaLabel: "Акции",
+            label: "Акции",
             id: "aksiya",
-            url: "/aksiya",
+            url: "/stocks",
             iconSrc: discountsIcon
         }
     ]
