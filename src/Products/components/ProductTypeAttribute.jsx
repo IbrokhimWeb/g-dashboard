@@ -77,7 +77,7 @@ const FilterBar = (props) => {
         <Container>
 
             <PageHeader
-                title={"Товары"}
+                title={"Типов атрибут продуктов"}
             >
                 <Button
                     variant="primary"
@@ -86,18 +86,18 @@ const FilterBar = (props) => {
                     // href={href}
                     style={{ width: "100%" }}
                 >
-                    Создать товар
+                    Создать типов атрибут продуктов
                 </Button>
             </PageHeader>
             <Card>
                 <div className={classes.headerBorder}>
                     <div className={classes.header}>
-                        <h3 className={classes.headerTitle}>Все товары</h3>
+                        <h3 className={classes.headerTitle}>Все типов атрибут продуктов</h3>
                     </div>
                     <div className={classes.headerSearch}>
                         <TextField
                             className={classes.headerInput}
-                            inputProps={{ placeholder: "Поиск товаров" }}
+                            inputProps={{ placeholder: "Поиск типов атрибут продуктов" }}
                             onChange={(e) => setSearch(e.target.value)}
                         />
                     </div>

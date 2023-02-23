@@ -56,7 +56,7 @@ const FilterBar = (props) => {
     React.useEffect(() => {
         (async () => {
             try {
-                const res = await $host.get(`dashboard/product-inventors/`);
+                const res = await $host.get(`/dashboard/users/`);
                 setData(res.data.results);
             } catch (error) {
                 console.error(error);
@@ -77,7 +77,7 @@ const FilterBar = (props) => {
         <Container>
 
             <PageHeader
-                title={"Инверторь продуктов"}
+                title={"Пользователи"}
             >
                 <Button
                     variant="primary"
@@ -86,34 +86,30 @@ const FilterBar = (props) => {
                     // href={href}
                     style={{ width: "100%" }}
                 >
-                    Создать Инверторь продуктов
+                    Создать пользователи
                 </Button>
             </PageHeader>
             <Card>
                 <div className={classes.headerBorder}>
                     <div className={classes.header}>
-                        <h3 className={classes.headerTitle}>Все Инверторь продуктов</h3>
+                        <h3 className={classes.headerTitle}>Все пользователи</h3>
                     </div>
                     <div className={classes.headerSearch}>
                         <TextField
                             className={classes.headerInput}
-                            inputProps={{ placeholder: "Поиск инверторь продуктов" }}
+                            inputProps={{ placeholder: "Поиск пользователи" }}
                             onChange={(e) => setSearch(e.target.value)}
                         />
                     </div>
                     <TableContainer className={classes.table}>
                         <TableHead>
                             <TableRow >
-                                <TableCell style={{ textAlign: "center" }}>#</TableCell>
-                                <TableCell> sku </TableCell>
-                                <TableCell>upc </TableCell>
-                                <TableCell>product.name </TableCell>
-                                <TableCell>brand.name </TableCell>
-                                <TableCell>price </TableCell>
-                                <TableCell>sale_price </TableCell>
-                                <TableCell>created_at </TableCell>
-                                <TableCell>updated_at </TableCell>
-                                <TableCell>Deystvya</TableCell>
+                                <TableCell style={{ width: "5%" }}>#</TableCell>
+                                <TableCell style={{ width: "15%" }}>first_name</TableCell>
+                                <TableCell style={{ width: "15%" }}>phone</TableCell>
+                                <TableCell style={{ width: "10%" }}>created_at</TableCell>
+                                <TableCell style={{ width: "10%", textAligin: "center" }}>IS Active  </TableCell>
+                                <TableCell style={{ width: "10%", textAligin: "center" }}>Deystvya</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -121,31 +117,26 @@ const FilterBar = (props) => {
                                 ?.filter((item) => {
                                     return search?.toLowerCase() === ""
                                         ? item
-                                        : item.product.name?.toLowerCase().includes(search.toLowerCase()) ||
+                                        : item.name?.toLowerCase().includes(search.toLowerCase()) ||
                                         String(item.id)
                                             ?.toLowerCase()
                                             .includes(search.toLowerCase());
                                 })
-                                .map(({ id, sku, upc, product, brand, price, sale_price, updated_at, created_at }) =>
+                                .map(({ id, phone_number, created_at, first_name
+                                }) =>
                                     <TableRow key={id}>
+                                        <TableCell> {id} </TableCell>
+                                        <TableCell style={{ width: "15%" }}> {first_name} </TableCell>
+                                        <TableCell style={{ width: "15%" }}> {phone_number} </TableCell>
+                                        <TableCell style={{ width: "15%" }}> {created_at} </TableCell>
                                         <TableCell>
                                             <Checkbox />
                                         </TableCell>
-                                        <TableCell> {sku} </TableCell>
-                                        <TableCell> {upc} </TableCell>
-                                        <TableCell> {product.name} </TableCell>
-                                        <TableCell> {brand.name} </TableCell>
-                                        <TableCell> {price} </TableCell>
-                                        <TableCell> {sale_price} </TableCell>
-                                        <TableCell> {created_at} </TableCell>
-                                        <TableCell> {updated_at} </TableCell>
                                         <TableCell
                                             style={{
-                                                width: "100%",
                                                 display: "flex",
                                                 alignItems: "center",
                                                 gap: "5px",
-                                                justifyContent: "center"
                                             }}
                                         >
                                             <ion-icon
@@ -153,7 +144,7 @@ const FilterBar = (props) => {
                                                 name="create-outline"
                                             ></ion-icon>
                                             <ion-icon
-                                                onClick={() => handleRemuve(id)}
+                                                onClick={() => { }}
                                                 name="trash-outline"
                                             ></ion-icon>
                                         </TableCell>

@@ -23,6 +23,10 @@ import ProductInventors from "./Products/components/ProductInventors";
 import ProductMedia from "./Products/components/ProductMedia";
 import ProductStocks from "./Products/components/ProductStocks";
 import ProductTypeAttributes from "./Products/components/ProductTypeAttribute";
+import ProductType from "./Products/components/ProductType";
+import Stocks from "./Products/components/Stocks";
+import Users from "./Products/components/Users";
+import Checkout from "./Products/components/Checkout";
 
 import HomePage from "./pages/HomePage";
 
@@ -45,6 +49,10 @@ const AppRoutes = () => {
                     <Route path="product-media" element={<ProductMedia />} />
                     <Route path="product-stocks" element={<ProductStocks />} />
                     <Route path="product-type-attribute" element={<ProductTypeAttributes />} />
+                    <Route path="product-type" element={<ProductType />} />
+                    <Route path="stocks" element={<Stocks />} />
+                    <Route path="users" element={<Users />} />
+                    <Route path="checkout" element={<Checkout />} />
 
 
 
