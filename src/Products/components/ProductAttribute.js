@@ -50,7 +50,7 @@ const FilterBar = (props) => {
     React.useEffect(() => {
         (async () => {
             try {
-                const res = await $host.get(`dashboard/products/`);
+                const res = await $host.get(`dashboard/product-attribute/`);
                 setData(res.data.results);
             } catch (error) {
                 console.error(error);
@@ -60,7 +60,7 @@ const FilterBar = (props) => {
 
     const handleRemuve = async (id) => {
         try {
-            const res = await $host.delete(`dashboard/products/${id}/`);
+            const res = await $host.delete(`dashboard/product-attribute/${id}/`);
             setReload((prev) => prev + 1);
         } catch (error) {
             console.error(error);
@@ -84,9 +84,6 @@ const FilterBar = (props) => {
                     <TableRow>
                         <TableCell>#</TableCell>
                         <TableCell>ID</TableCell>
-                        <TableCell>attribute_value</TableCell>
-                        <TableCell>product_attributes</TableCell>
-                        <TableCell>created_at</TableCell>
                         <TableCell>Actios</TableCell>
                     </TableRow>
                 </TableHead>
@@ -100,14 +97,10 @@ const FilterBar = (props) => {
                                     ?.toLowerCase()
                                     .includes(search.toLowerCase());
                         })
-                        .map(({ id, name, created_at, updated_at, status, is_active }) =>
-                            is_active ? (
+                        .map(({ id, name, is_active }) =>
                                 <TableRow key={id}>
                                     <TableCell> {id} </TableCell>
                                     <TableCell> {name} </TableCell>
-                                    <TableCell> {created_at} </TableCell>
-                                    <TableCell> {updated_at} </TableCell>
-                                    <TableCell> {status} </TableCell>
                                     <TableCell
                                         style={{
                                             display: "flex",
@@ -125,7 +118,7 @@ const FilterBar = (props) => {
                                         ></ion-icon>
                                     </TableCell>
                                 </TableRow>
-                            ) : null
+                            
                         )}
                 </TableBody>
             </TableContainer>
