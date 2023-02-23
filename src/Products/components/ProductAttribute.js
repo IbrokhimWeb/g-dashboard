@@ -85,7 +85,7 @@ const FilterBar = (props) => {
                 <TableHead>
                     <TableRow>
                         <TableCell>#</TableCell>
-                        <TableCell>ID</TableCell>
+                        <TableCell>Name</TableCell>
                         <TableCell style={{ textAlign: "center"}}>Actios</TableCell>
                     </TableRow>
                 </TableHead>
@@ -102,7 +102,7 @@ const FilterBar = (props) => {
                         .map(({ id, name }) =>
                                 <TableRow key={id}>
                                     <TableCell> {id} </TableCell>
-                                    <TableCell onClick={() => navigate(`/product-attribute/${id}`)}> {name} </TableCell>
+                                    <TableCell onClick={() => navigate(`/product_attribute/${id}`)}> {name} </TableCell>
                                     <TableCell
                                         style={{
                                             display: "flex",
