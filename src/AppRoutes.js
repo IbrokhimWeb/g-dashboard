@@ -16,6 +16,16 @@ import ProductAdd from "./Products/components/ProductAdd/ProductAdd";
 import SliderList from "./Slider/Slider";
 import ProductAttribute from "./Products/components/ProductAttribute";
 
+import AttributeValue from "./Products/components/AtributeValue";
+import Attribute from "./Products/components/Atribute";
+import Brand from "./Products/components/Brand";
+import ProductInventors from "./Products/components/ProductInventors";
+import ProductMedia from "./Products/components/ProductMedia";
+import ProductStocks from "./Products/components/ProductStocks";
+import ProductTypeAttributes from "./Products/components/ProductTypeAttribute";
+
+import HomePage from "./pages/HomePage";
+
 
 const AppRoutes = () => {
     const isAuth = useSelector((state) => state.user.isAuth);
@@ -24,7 +34,22 @@ const AppRoutes = () => {
         <Routes>
             <Route element={<PrivateRoute isAuth={isAuth} />}>
                 <Route path="/" element={<AppSidebar />}>
+                    <Route index element={<HomePage />} />
                     <Route path="products" element={<Products />} />
+
+
+                    <Route path="attribute-values" element={<AttributeValue />} />
+                    <Route path="attribute" element={<Attribute />} />
+                    <Route path="product-brand" element={<Brand />} />
+                    <Route path="product-inventors" element={<ProductInventors />} />
+                    <Route path="product-media" element={<ProductMedia />} />
+                    <Route path="product-stocks" element={<ProductStocks />} />
+                    <Route path="product-type-attribute" element={<ProductTypeAttributes />} />
+
+
+
+
+
                     <Route path="products/:id" element={<ProductDetailPage />} />
                     <Route path="products/add" element={<ProductAdd />} />
                     <Route path="categories" element={<CategoriesPage />} />

@@ -13,9 +13,7 @@ const Products = () => {
         document.title = "Товары";
     }, []);
 
-
     const navigate = useNavigate();
-
 
     return (
         <>
