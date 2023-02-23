@@ -15,6 +15,7 @@ import Products from "./Products";
 import ProductAdd from "./Products/components/ProductAdd/ProductAdd";
 import SliderList from "./Slider/Slider";
 import ProductAttribute from "./Products/components/ProductAttribute";
+
 import AttributeValue from "./Products/components/AtributeValue";
 import Attribute from "./Products/components/Atribute";
 import Brand from "./Products/components/Brand";
@@ -23,6 +24,7 @@ import ProductMedia from "./Products/components/ProductMedia";
 import ProductStocks from "./Products/components/ProductStocks";
 import ProductTypeAttributes from "./Products/components/ProductTypeAttribute";
 
+import HomePage from "./pages/HomePage";
 
 
 const AppRoutes = () => {
@@ -32,6 +34,7 @@ const AppRoutes = () => {
         <Routes>
             <Route element={<PrivateRoute isAuth={isAuth} />}>
                 <Route path="/" element={<AppSidebar />}>
+                    <Route index element={<HomePage />} />
                     <Route path="products" element={<Products />} />
 
 
