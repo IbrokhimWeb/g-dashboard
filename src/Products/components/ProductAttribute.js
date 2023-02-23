@@ -85,8 +85,8 @@ const FilterBar = (props) => {
                 <TableHead>
                     <TableRow>
                         <TableCell>#</TableCell>
-                        <TableCell>Name</TableCell>
-                        <TableCell style={{ textAlign: "center"}}>Actios</TableCell>
+                        <TableCell>Название</TableCell>
+                        <TableCell style={{ textAlign: "center"}}>Действия</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
