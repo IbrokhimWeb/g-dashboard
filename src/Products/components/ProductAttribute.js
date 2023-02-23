@@ -81,7 +81,7 @@ const FilterBar = (props) => {
                 />
             </div>
             <TableContainer className={classes.table}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <Table sx={{minWidth: 650}} aria-label="simple table">
                 <TableHead>
                     <TableRow>
                         <TableCell>#</TableCell>
