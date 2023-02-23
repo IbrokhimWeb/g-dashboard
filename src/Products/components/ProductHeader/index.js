@@ -45,6 +45,7 @@ const FilterBar = (props) => {
   const navigate = useNavigate();
   const [reload, setReload] = React.useState(1);
   const [data, setData] = React.useState([]);
+  console.log(data);
   const [search, setSearch] = React.useState("");
 
   React.useEffect(() => {
@@ -60,7 +61,7 @@ const FilterBar = (props) => {
 
   const handleRemuve = async (id) => {
     try {
-      const res = await $host.delete(`dashboard/products/${id}/`);
+      await $host.delete(`dashboard/products/${id}/`);
       setReload((prev) => prev + 1);
     } catch (error) {
       console.error(error);
@@ -83,11 +84,11 @@ const FilterBar = (props) => {
         <TableHead>
           <TableRow>
             <TableCell>#</TableCell>
-            <TableCell>Name</TableCell>
-            <TableCell>Create at</TableCell>
-            <TableCell>Update at</TableCell>
-            <TableCell>Status</TableCell>
-            <TableCell>Actios</TableCell>
+            <TableCell>Имя</TableCell>
+            <TableCell>Создать в</TableCell>
+            <TableCell>Обновить</TableCell>
+            <TableCell style={{ textAlign: "center" }}>Положение дел</TableCell>
+            <TableCell style={{ textAligin: "center" }}>Действия</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -96,9 +97,9 @@ const FilterBar = (props) => {
               return search?.toLowerCase() === ""
                 ? item
                 : item.name?.toLowerCase().includes(search.toLowerCase()) ||
-                    String(item.id)
-                      ?.toLowerCase()
-                      .includes(search.toLowerCase());
+                String(item.id)
+                  ?.toLowerCase()
+                  .includes(search.toLowerCase());
             })
             .map(({ id, name, created_at, updated_at, status, is_active }) =>
               is_active ? (
@@ -107,16 +108,17 @@ const FilterBar = (props) => {
                   <TableCell> {name} </TableCell>
                   <TableCell> {created_at} </TableCell>
                   <TableCell> {updated_at} </TableCell>
-                  <TableCell> {status} </TableCell>
+                  <TableCell style={{ textAlign: "center" }}> {status} </TableCell>
                   <TableCell
                     style={{
                       display: "flex",
                       alignItems: "center",
                       gap: "5px",
+                      justifyContent: "center"
                     }}
                   >
                     <ion-icon
-                      onClick={() => {}}
+                      onClick={() => { }}
                       name="create-outline"
                     ></ion-icon>
                     <ion-icon
