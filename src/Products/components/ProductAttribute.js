@@ -1,5 +1,6 @@
 import {
     Checkbox,
+    Table,
     TableBody,
     TableCell,
     TableContainer,
@@ -69,7 +70,7 @@ const FilterBar = (props) => {
 
     return (
         <div className={classes.headerBorder}>
-            <div className={classes.header}>
+            <div className={classes.header} >
                 <h3 className={classes.headerTitle}>Атрибут продукта</h3>
             </div>
             <div className={classes.headerSearch}>
@@ -80,11 +81,12 @@ const FilterBar = (props) => {
                 />
             </div>
             <TableContainer className={classes.table}>
+            <Table sx={{minWidth: 650}} aria-label="simple table">
                 <TableHead>
                     <TableRow>
                         <TableCell>#</TableCell>
-                        <TableCell>ID</TableCell>
-                        <TableCell>Actios</TableCell>
+                        <TableCell>Name</TableCell>
+                        <TableCell style={{ textAlign: "center"}}>Actios</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -97,19 +99,20 @@ const FilterBar = (props) => {
                                     ?.toLowerCase()
                                     .includes(search.toLowerCase());
                         })
-                        .map(({ id, name, is_active }) =>
+                        .map(({ id, name }) =>
                                 <TableRow key={id}>
                                     <TableCell> {id} </TableCell>
-                                    <TableCell> {name} </TableCell>
+                                    <TableCell onClick={() => navigate(`/product_attribute/${id}`)}> {name} </TableCell>
                                     <TableCell
                                         style={{
                                             display: "flex",
                                             alignItems: "center",
                                             gap: "5px",
+                                            justifyContent: "center"
                                         }}
                                     >
                                         <ion-icon
-                                            onClick={() => { }}
+                                            onClick={() => navigate(`/product-attribute/edit/${id}`) }
                                             name="create-outline"
                                         ></ion-icon>
                                         <ion-icon
@@ -121,6 +124,7 @@ const FilterBar = (props) => {
                             
                         )}
                 </TableBody>
+                </Table>
             </TableContainer>
         </div>
     );
