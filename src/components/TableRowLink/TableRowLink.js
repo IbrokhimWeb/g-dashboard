@@ -1,9 +1,10 @@
-import { isExternalURL } from "@dashboard/utils/urls";
+// import { isExternalURL } from "@dashboard/utils/urls";
 import { TableRow } from "@material-ui/core";
 import { makeStyles } from "@saleor/macaw-ui";
 import clsx from "clsx";
 import React from "react";
 import { Link } from "react-router-dom";
+import { isExternalURL } from "../IconButton/IconButton";
 
 // type MaterialTableRowPropsType = TableRowTypeMap["props"];
 

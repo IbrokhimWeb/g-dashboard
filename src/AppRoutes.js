@@ -15,6 +15,7 @@ import Products from "./Products";
 import ProductAdd from "./Products/components/ProductAdd/ProductAdd";
 import SliderList from "./Slider/Slider";
 import ProductAttribute from "./Products/components/ProductAttribute";
+import HomePage from "./pages/HomePage";
 
 
 const AppRoutes = () => {
@@ -24,6 +25,7 @@ const AppRoutes = () => {
         <Routes>
             <Route element={<PrivateRoute isAuth={isAuth} />}>
                 <Route path="/" element={<AppSidebar />}>
+                    <Route index element={<HomePage/>}/>
                     <Route path="products" element={<Products />} />
                     <Route path="products/:id" element={<ProductDetailPage />} />
                     <Route path="products/add" element={<ProductAdd />} />
