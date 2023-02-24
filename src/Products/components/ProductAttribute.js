@@ -11,13 +11,17 @@ import { TextField } from "@material-ui/core";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { Button } from "../../components/Button";
 import $host from "../../http";
 
 const useStyles = makeStyles((theme) => ({
     header: {
         display: "flex",
-        alignItems: "center",
-        paddingLeft: theme.spacing(4),
+        justifyContent: "space-between",
+        alignItems: 'center',
+        width: '100%',
+        flexDirection: 'row',
+        padding: theme.spacing(4),
         borderBottom: "1px solid rgba(37, 41, 41, 0.1)",
     },
     headerTitle: {
@@ -27,7 +31,6 @@ const useStyles = makeStyles((theme) => ({
         padding: `0 ${theme.spacing(1)}`,
         paddingTop: theme.spacing(2),
         paddingBottom: theme.spacing(1.4),
-        borderBottom: "2px solid #000",
     },
     headerSearch: {
         padding: `${theme.spacing(1)} ${theme.spacing(4)}`,
@@ -75,8 +78,18 @@ const FilterBar = (props) => {
     return (
         <div className={classes.headerBorder}>
             <div className={classes.header} >
-                <h3 className={classes.headerTitle}>Атрибут продукта</h3>
+                <h3 className={classes.headerTitle}>Аттрибут продукта</h3>
+                <Button
+                    variant="primary"
+                    color="primary"
+                    onClick={() => navigate("/product-attribute/add/")}
+                    style={{height: '70%'}}
+                    // href={href}
+                    >
+                    Создать аттрибут
+                </Button>
             </div>
+            <div style={{background: 'rgba(52, 56, 75, 1)', margin: '13px', borderRadius: '7px', padding: '23px 0'}}>
             <div className={classes.headerSearch}>
                 <TextField
                     className={classes.headerInput}
@@ -106,7 +119,7 @@ const FilterBar = (props) => {
                         .map(({ id, name }) =>
                                 <TableRow key={id}>
                                     <TableCell> {id} </TableCell>
-                                    <TableCell onClick={() => navigate(`/product_attribute/${id}`)}> {name} </TableCell>
+                                    <TableCell onClick={() => navigate(`/product-attribute/${id}`)}> {name} </TableCell>
                                     <TableCell
                                         style={{
                                             display: "flex",
@@ -130,6 +143,8 @@ const FilterBar = (props) => {
                 </TableBody>
                 </Table>
             </TableContainer>
+            </div>
+            
         </div>
     );
 };

@@ -57,7 +57,7 @@ const CategoriesEdit = (props) => {
     return (
         <Container>
             <Backlink onClick={() => sendToPreviousURL()}>Аттрибуты</Backlink>
-            <PageHeader title="Редактировать" />
+            <PageHeader title="Редактировать аттрибут" />
             <div>
                 <Card>
                     <CardTitle title={"Основная информация"} />

@@ -16,6 +16,8 @@ import ProductAdd from "./Products/components/ProductAdd/ProductAdd";
 import SliderList from "./Slider/Slider";
 import ProductAttribute from "./Products/components/ProductAttribute";
 import ProductAttributeEdit from "./Products/components/ProductAttributeEdit";
+import ProductAttributeAdd from "./Products/components/ProductAttributeAdd";
+import ProductAttributeIndex from "./Products/components/ProductAttributeIndex";
 import AttributeValue from "./Products/components/AtributeValue";
 import Attribute from "./Products/components/Atribute";
 import Brand from "./Products/components/Brand";
@@ -68,7 +70,9 @@ const AppRoutes = () => {
                     <Route path="brands" element={<BrandsPage />} />
                     <Route path="aksiya" element={<BrandsPage />} />
                     <Route path="product_attribute" element={<ProductAttribute />} />
+                    <Route path="product-attribute/:id" element={<ProductAttributeIndex />} />
                     <Route path="product-attribute/edit/:id" element={<ProductAttributeEdit />} />
+                    <Route path="product-attribute/add" element={<ProductAttributeAdd />} />
                 </Route>
             </Route>
             <Route path="/auth" element={<Auth />}>
