@@ -37,6 +37,7 @@ import SliderEdit from "./Slider/SliderEdit";
 import ProductEdit from "./Products/ProductEdit";
 import InvetorAdd from "./Products/InvetorAdd";
 import BrandsEdit from "./pages/Brands/components/BrandsAdd/BrandsEdit";
+import ProductMediaEdit from "./Products/components/ProductMediaEdit";
 
 
 const AppRoutes = () => {
@@ -72,6 +73,11 @@ const AppRoutes = () => {
 
 
                     <Route path="product-media" element={<ProductMedia />} />
+                    <Route path="product-media/edit/:id" element={<ProductMediaEdit />} />
+
+
+
+
                     <Route path="product-stocks" element={<ProductStocks />} />
                     <Route path="product-type-attribute" element={<ProductTypeAttributes />} />
                     <Route path="product-type" element={<ProductType />} />
