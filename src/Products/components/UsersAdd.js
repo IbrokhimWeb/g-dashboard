@@ -31,9 +31,8 @@ const UsersAdd = (props) => {
 
 
     const [newData, setNewData] = React.useState({
-        name: "",
-        slug: "",
-        description: "",
+        first_name: "",
+        phone_number: "",
         is_active: true,
         is_staff: false
     });
@@ -43,10 +42,10 @@ const UsersAdd = (props) => {
 
     const handleSubmit = async () => {
         const formData = new FormData();
-        formData.append('name', newData.name);
-        formData.append('number', newData.phone_number);
+        formData.append('first_name', newData.first_name);
+        formData.append('phone_number', newData.phone_number);
         formData.append("is_active", newData.is_active);
-        formData.append("is_active", newData.is_staff);
+        formData.append("is_staff", newData.is_staff);
         const res = await $host.post(`/dashboard/users/`, formData)
         res?.statusText ? navigate("/users") : alert("Nimadir hato ketdi");
     }
@@ -59,24 +58,12 @@ const UsersAdd = (props) => {
                 <Card>
                     <CardTitle title={"Основная информация"} />
                     <div className={classes.mainCardInfo}>
-                        <TextField fullWidth label={"Имя пользователя"} name="name" value={newData?.name} onChange={(e) => handleChange(e.target)} />
-                        <FormSpacer />
-                        <TextField fullWidth label={"Номер телефона"} name="number" value={newData?.phone_number} onChange={(e) => handleChange(e.target)} />
-                        <FormSpacer />
-                        <Checkbox
-                            checked={newData?.is_active}
-                            onChange={(e) =>
-                            setNewData((prev) => ({ ...prev, is_active: e.target.checked }))
-                            }
-                        />
-                        Активный <br />
-                        <Checkbox
-                            checked={newData?.is_staff}
-                            onChange={(e) =>
-                            setNewData((prev) => ({ ...prev, is_staff: e.target.checked }))
-                            }
-                        />
-                        Персонал <br />
+                        <TextField type="text" fullWidth placeholder={"Имя пользователя"} name="first_name" value={newData?.first_name} onChange={(e) => handleChange(e.target)} />
+                        <CardSpacer />
+                        <TextField type="string" fullWidth placeholder={"Номер телефона"} name="phone_number" value={newData?.phone_number} onChange={(e) => handleChange(e.target)} />
+                        <CardSpacer />
+                        <Checkbox checked={newData?.is_active ? true : false} onChange={e => setNewData(prev => ({ ...prev, is_active: e.target.checked }))} />is_active
+                        <Checkbox checked={newData?.is_staff ? true : false} onChange={e => setNewData(prev => ({ ...prev, is_staff: e.target.checked }))} />is_staff
                     </div>
                 </Card>
                 <CardSpacer />

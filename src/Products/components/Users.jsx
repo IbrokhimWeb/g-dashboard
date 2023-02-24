@@ -122,8 +122,8 @@ const FilterBar = (props) => {
                                             ?.toLowerCase()
                                             .includes(search.toLowerCase());
                                 })
-                                .map(({ id, phone_number, created_at, first_name
-                                }) =>
+                                .map(({ id, phone_number, created_at, first_name, is_active
+                                }) => is_active ? (
                                     <TableRow key={id}>
                                         <TableCell> {id} </TableCell>
                                         <TableCell style={{ width: "15%" }}> {first_name} </TableCell>
@@ -150,6 +150,7 @@ const FilterBar = (props) => {
                                             ></ion-icon>
                                         </TableCell>
                                     </TableRow>
+                                ): null
                                 )}
                         </TableBody>
                     </TableContainer>
