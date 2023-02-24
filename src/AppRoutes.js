@@ -35,6 +35,7 @@ import SliderAdd from "./Slider/SliderAdd";
 import SliderEdit from "./Slider/SliderEdit";
 
 import ProductEdit from "./Products/ProductEdit";
+import BrandsEdit from "./pages/Brands/components/BrandsAdd/BrandsEdit";
 
 
 const AppRoutes = () => {
@@ -88,6 +89,7 @@ const AppRoutes = () => {
 
                     <Route path="brands" element={<BrandsPage />} />
                     <Route path="brands/add" element={<BrandsAdd />} />
+                    <Route path="brands/edit/:id" element={<BrandsEdit />} />                    
 
                     <Route path="aksiya" element={<BrandsPage />} />
 
