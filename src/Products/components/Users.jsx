@@ -141,11 +141,11 @@ const FilterBar = (props) => {
                                             }}
                                         >
                                             <ion-icon
-                                                onClick={() => { }}
+                                                onClick={() => navigate(`/users/edit/${id}`)}
                                                 name="create-outline"
                                             ></ion-icon>
                                             <ion-icon
-                                                onClick={() => { }}
+                                                onClick={() => handleRemuve(id)}
                                                 name="trash-outline"
                                             ></ion-icon>
                                         </TableCell>
