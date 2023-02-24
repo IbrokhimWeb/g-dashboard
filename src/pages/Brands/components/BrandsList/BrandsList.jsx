@@ -93,6 +93,7 @@ const useStyles = makeStyles(
 );
 
 const BrandsList = memo(({ search }) => {
+    const [data, setData] = React.useState([]);
     const classes = useStyles();
     const navigate = useNavigate();
     // const categories = useSelector((state) => state.categories);
@@ -108,11 +109,16 @@ const BrandsList = memo(({ search }) => {
         []
     );
 
-    const parent = (id) => {
-        const parents = [];
-        brands.filter((e) => !e.parent && parents.push(e.name));
-
-        return parents[id - 1];
+    const handleRemuve = async (id) => {
+        try {
+            const res = await $host.delete(`dashboard/brands/${id}/`);
+            setData(
+                data.filter((post) => {
+                return post.id != id;
+            }));
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     return (
@@ -123,10 +129,11 @@ const BrandsList = memo(({ search }) => {
                         <TableCell padding="checkbox">
                             <Checkbox />
                         </TableCell>
-                        <TableCell style={{ width: "20px" }}>id</TableCell>
-                        <TableCell style={{ width: "200px" }}>Brand</TableCell>
-                        <TableCell>Create</TableCell>
-                        <TableCell>Update</TableCell>
+                        <TableCell style={{ width: "20px" }}>ID</TableCell>
+                        <TableCell style={{ width: "200px" }}>Марка</TableCell>
+                        <TableCell>Создан</TableCell>
+                        <TableCell>Обновлен</TableCell>
+                        <TableCell style={{ textAlign: "center" }}>Действия</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -149,6 +156,10 @@ const BrandsList = memo(({ search }) => {
                                     </TableCell>
                                     <TableCell>{brand.created_at}</TableCell>
                                     <TableCell>{brand.updated_at}</TableCell>
+                                    <TableCell style={{ width: "100%", display: "flex", alignItems: "center", gap: "5px", justifyContent: "center" }}>
+                                        <ion-icon onClick={() => navigate(`/brands/edit/${brand.id}`)} name="create-outline"></ion-icon>
+                                        <ion-icon onClick={() => handleRemuve(brand.id)} name="trash-outline"></ion-icon>
+                                    </TableCell>
                                 </TableRow>
                         )}
                 </TableBody>

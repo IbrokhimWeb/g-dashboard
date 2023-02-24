@@ -6,6 +6,7 @@ import LoginPage from "./Auth/LoginPage/LoginPage";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import AppSidebar from "./layout/Sidebar";
 import BrandsPage from "./pages/Brands/BrandsPage";
+import BrandsAdd from "./pages/Brands/components/BrandsAdd/BrandsAdd";
 import CategoriesAdd from "./pages/CategoriesAdd/CategoriesAdd";
 import CategoriesEdit from "./pages/CategoriesAdd/CategoriesEdit";
 import CategoriesPage from "./pages/CategoriesPage";
@@ -70,8 +71,8 @@ const AppRoutes = () => {
                     <Route path="sliders" element={<SliderList />} />
 
                     <Route path="brands" element={<BrandsPage />} />
+                    <Route path="brands/add" element={<BrandsAdd />} />
 
-                    
                     <Route path="aksiya" element={<BrandsPage />} />
 
                     <Route path="product_attribute" element={<ProductAttribute />} />
