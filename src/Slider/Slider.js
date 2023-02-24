@@ -1,14 +1,8 @@
-import {
-  Button,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-} from "@material-ui/core";
+import { Button,  Card, Container, TableBody, TableCell, TableHead, TableRow } from "@material-ui/core";
 import { makeStyles } from "@saleor/macaw-ui";
 import React, { memo, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Checkbox from "../components/Checkbox/Checkbox";
+import PageHeader from "../components/PageHeader";
 import ResponsiveTable from "../components/ResponsiveTable/ResponsiveTable";
 import $host from "../http";
 const useStyles = makeStyles(
@@ -95,7 +89,9 @@ const useStyles = makeStyles(
 const SliderList = memo(() => {
   const classes = useStyles();
   const navigate = useNavigate();
+  const [ reload, setReload] = useState(1)
   const [sliders, setSliders] = useState([]);
+  console.log(sliders);
   console.log(sliders);
   useEffect(
     () =>
@@ -104,44 +100,62 @@ const SliderList = memo(() => {
         .then((res) => setSliders(res.data.results))
         .catch((error) => console.error(error)),
 
-    []
+    [reload]
   );
 
+  const handleRemuve = (id) => {
+    $host.delete(`dashboard/sliders/${id}/`).then((res) => { setReload(prev => prev + 1); console.log(res) }).catch((error) => console.error(error))
+  }
+
   return (
+    <Container>
+        <PageHeader title={"Слайдеры"}>
+          <Button
+            variant="primary"
+            color="primary"
+            onClick={() => navigate("/sliders/add")}
+            // href={href}
+            style={{ width: "100%" }}
+          >
+            Создать слайдеры
+          </Button>
+        </PageHeader>
+        <Card>
     <div className={classes.tableContainer}>
       <ResponsiveTable className={classes.table}>
         <TableHead>
           <TableRow>
-            <TableCell padding="checkbox">
-              <Checkbox />
-            </TableCell>
             <TableCell style={{ width: "20px" }}>Id</TableCell>
             <TableCell>Названия слайдера</TableCell>
             <TableCell>Изображения слайдера</TableCell>
             <TableCell>Время создания</TableCell>
+            <TableCell style={{width:"10%"}}>Действия</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {sliders.map((slider) => (
             <TableRow key={slider.id}>
-              <TableCell padding="checkbox">
-                <Checkbox />
-              </TableCell>
               <TableCell style={{ width: "20px" }}>{slider.id}</TableCell>
               <TableCell>
-                <a style={{ color: "aqua" }} href={slider.url}>
+                <a style={{ color: "#c58af9" }} href={slider.url}>
                   {slider.url}
                 </a>
               </TableCell>
               <TableCell>
                 <img src={slider.images} alt={slider.slug} height={60} />
               </TableCell>
-              <TableCell>{slider.created_at}</TableCell>
+              <TableCell style={{width:"50%"}}>{slider.created_at}</TableCell>
+              <TableCell style={{width:"10%"}}>
+                  <ion-icon style={{marginLeft: "20px"}} onClick={() => navigate(`/sliders/edit/${slider.id}`)} name="create-outline"></ion-icon>
+                  <ion-icon onClick={() => handleRemuve(slider.id)} name="trash-outline"></ion-icon>
+                </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </ResponsiveTable>
     </div>
+    </Card>
+    </Container>
   );
 });
 

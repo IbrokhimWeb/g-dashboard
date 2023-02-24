@@ -31,6 +31,10 @@ import Users from "./Products/components/Users";
 import Checkout from "./Products/components/Checkout";
 
 import HomePage from "./pages/HomePage";
+import SliderAdd from "./Slider/SliderAdd";
+import SliderEdit from "./Slider/SliderEdit";
+
+import ProductEdit from "./Products/ProductEdit";
 
 
 const AppRoutes = () => {
@@ -60,13 +64,27 @@ const AppRoutes = () => {
 
 
 
-                    <Route path="products/:id" element={<ProductDetailPage />} />
+                    <Route path="product-attribute-values" element={<ProductDetailPage />} />
                     <Route path="products/add" element={<ProductAdd />} />
+                    <Route path="products/edit/:id" element={<ProductEdit />} />
+                    
+
+
                     <Route path="categories" element={<CategoriesPage />} />
                     <Route path="category/:id" element={<CategoriesUpdatePage />} />
                     <Route path="category/add" element={<CategoriesAdd />} />
                     <Route path="category/edit/:id" element={<CategoriesEdit />} />
+
+
+
+
                     <Route path="sliders" element={<SliderList />} />
+                    <Route path="sliders/add" element={<SliderAdd />} />
+                    <Route path="sliders/edit/:id" element={<SliderEdit />} />
+
+
+
+
                     <Route path="brands" element={<BrandsPage />} />
                     <Route path="aksiya" element={<BrandsPage />} />
                     <Route path="product_attribute" element={<ProductAttribute />} />
