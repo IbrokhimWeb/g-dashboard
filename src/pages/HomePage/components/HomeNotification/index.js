@@ -31,7 +31,7 @@ const HomeNotification = () => {
             <CardContent className={classes.cardContent}>
                 <ResponsiveTable>
                     <TableBody>
-                        <TableRowLink hover={true} href="/products">
+                        <TableRowLink hover={true} href="/checkout">
                             <TableCell>
                                 <Typography>
                                     <strong>2</strong> заказа готовы к выполнению
@@ -41,7 +41,7 @@ const HomeNotification = () => {
                                 <KeyboardArrowRight />
                             </TableCell>
                         </TableRowLink>
-                        <TableRowLink hover={true} href="/products">
+                        <TableRowLink hover={true} href="/checkout">
                             <TableCell>
                                 <Typography>
                                     <strong>2</strong> заказа в обработке
