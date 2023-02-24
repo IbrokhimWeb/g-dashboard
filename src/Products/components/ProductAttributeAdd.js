@@ -44,12 +44,8 @@ const ProductAttributeAdd = (props) => {
     const handleSubmit = async () => {
         const formData = new FormData();
         formData.append('name', newData.name);
-        formData.append('slug', newData.slug);
-        formData.append("description", newData.description);
-        formData.append("is_active", newData.is_active);
-        formData.append("background_image", file);
-        const res = await $host.post(`/dashboard/categories/`, formData)
-        res?.statusText ? navigate("/categories") : alert("Nimadir hato ketdi");
+        const res = await $host.post(`/dashboard/product-attribute/`, formData)
+        res?.statusText ? navigate("/product_attribute") : alert("Nimadir hato ketdi");
     }
 
     return (
