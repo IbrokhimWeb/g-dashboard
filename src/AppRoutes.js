@@ -28,6 +28,8 @@ import ProductTypeAttributes from "./Products/components/ProductTypeAttribute";
 import ProductType from "./Products/components/ProductType";
 import Stocks from "./Products/components/Stocks";
 import Users from "./Products/components/Users";
+import UsersAdd from "./Products/components/UsersAdd";
+import UsersEdit from "./Products/components/UsersEdit"
 import Checkout from "./Products/components/Checkout";
 
 import HomePage from "./pages/HomePage";
@@ -53,7 +55,12 @@ const AppRoutes = () => {
                     <Route path="attribute-values" element={<AttributeValue />} />
                     <Route path="attribute" element={<Attribute />} />
                     <Route path="stocks" element={<Stocks />} />
+
                     <Route path="users" element={<Users />} />
+                    <Route path="users/add" element={<UsersAdd />} />
+                    <Route path="users/edit/:id" element={<UsersEdit />} />
+
+
                     <Route path="checkout" element={<Checkout />} />
 
 
