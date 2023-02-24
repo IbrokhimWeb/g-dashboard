@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import CardSpacer from "../../components/CardSpacer";
 import CardTitle from "../../components/CardTitle";
+import FormSpacer from "../../components/FormSpacer/FormSpacer";
 import Container from "../../components/Container";
 import PageHeader from "../../components/PageHeader";
 import $host from "../../http";
@@ -46,6 +47,7 @@ const CategoriesEdit = (props) => {
     const handleEdit = async () => {
         const formData = new FormData();
         formData.append('name', data.name);
+        formData.append('description', data.description);
         const res = await $host.patch(`/dashboard/product-attribute/${params?.id}/`, formData)
         res?.statusText ? navigate("/product_attribute") : alert("Nimadir hato ketdi");
 
@@ -63,6 +65,8 @@ const CategoriesEdit = (props) => {
                     <CardTitle title={"Основная информация"} />
                     <div className={classes.mainCardInfo}>
                         <TextField fullWidth placeholder={"Название аттрибута"} name="name" value={data?.name} onChange={(e) => handleChange(e.target)} />
+                        <FormSpacer />
+                        <TextField fullWidth label={"Описание"} name="description" value={data?.description} onChange={(e) => handleChange(e.target)} />
                     </div>
                 </Card>
                 <CardSpacer />

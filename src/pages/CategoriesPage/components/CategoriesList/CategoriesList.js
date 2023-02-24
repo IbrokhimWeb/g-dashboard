@@ -130,7 +130,7 @@ const CategoriesList = memo(({ search }) => {
             <TableCell>Название категории</TableCell>
             <TableCell>описание</TableCell>
             <TableCell>родитель</TableCell>
-            <TableCell style={{ textAlign: "center" }}>изменять</TableCell>
+            <TableCell style={{ textAlign: "center" }}>Действия</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

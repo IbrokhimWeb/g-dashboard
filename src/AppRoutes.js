@@ -6,6 +6,7 @@ import LoginPage from "./Auth/LoginPage/LoginPage";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import AppSidebar from "./layout/Sidebar";
 import BrandsPage from "./pages/Brands/BrandsPage";
+import BrandsAdd from "./pages/Brands/components/BrandsAdd/BrandsAdd";
 import CategoriesAdd from "./pages/CategoriesAdd/CategoriesAdd";
 import CategoriesEdit from "./pages/CategoriesAdd/CategoriesEdit";
 import CategoriesPage from "./pages/CategoriesPage";
@@ -35,6 +36,7 @@ import SliderEdit from "./Slider/SliderEdit";
 
 import ProductEdit from "./Products/ProductEdit";
 import InvetorAdd from "./Products/InvetorAdd";
+import BrandsEdit from "./pages/Brands/components/BrandsAdd/BrandsEdit";
 
 
 const AppRoutes = () => {
@@ -95,6 +97,8 @@ const AppRoutes = () => {
                     <Route path="sliders" element={<SliderList />} />
 
                     <Route path="brands" element={<BrandsPage />} />
+                    <Route path="brands/add" element={<BrandsAdd />} />
+                    <Route path="brands/edit/:id" element={<BrandsEdit />} />                    
 
 
                     <Route path="aksiya" element={<BrandsPage />} />

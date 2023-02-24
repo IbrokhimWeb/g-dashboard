@@ -44,6 +44,7 @@ const ProductAttributeAdd = (props) => {
     const handleSubmit = async () => {
         const formData = new FormData();
         formData.append('name', newData.name);
+        formData.append('description', newData.description);
         const res = await $host.post(`/dashboard/product-attribute/`, formData)
         res?.statusText ? navigate("/product_attribute") : alert("Nimadir hato ketdi");
     }
@@ -57,6 +58,8 @@ const ProductAttributeAdd = (props) => {
                     <CardTitle title={"Основная информация"} />
                     <div className={classes.mainCardInfo}>
                         <TextField fullWidth label={"Название аттрибута"} name="name" value={newData?.name} onChange={(e) => handleChange(e.target)} />
+                        <FormSpacer />
+                        <TextField fullWidth label={"Описание"} name="description" value={newData?.description} onChange={(e) => handleChange(e.target)} />
                     </div>
                 </Card>
                 <CardSpacer />

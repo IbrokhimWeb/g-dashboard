@@ -30,7 +30,7 @@ const CategoriesEdit = (props) => {
     const classes = useStyles(props);
 
     const sendToPreviousURL = () => {
-        navigate("/product_attribute")
+        navigate("/categories")
     }
 
     useEffect(() => {

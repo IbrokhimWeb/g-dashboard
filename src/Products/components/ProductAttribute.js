@@ -103,6 +103,7 @@ const FilterBar = (props) => {
                     <TableRow>
                         <TableCell>#</TableCell>
                         <TableCell>Название</TableCell>
+                        <TableCell>Описание</TableCell>
                         <TableCell style={{ textAlign: "center"}}>Действия</TableCell>
                     </TableRow>
                 </TableHead>
@@ -116,10 +117,11 @@ const FilterBar = (props) => {
                                     ?.toLowerCase()
                                     .includes(search.toLowerCase());
                         })
-                        .map(({ id, name }) =>
+                        .map(({ id, name, description }) =>
                                 <TableRow key={id}>
                                     <TableCell> {id} </TableCell>
                                     <TableCell onClick={() => navigate(`/product-attribute/${id}`)}> {name} </TableCell>
+                                    <TableCell> {description} </TableCell>
                                     <TableCell
                                         style={{
                                             display: "flex",
