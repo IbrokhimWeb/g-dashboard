@@ -118,7 +118,7 @@ const FilterBar = (props) => {
                     }}
                   >
                     <ion-icon
-                      onClick={() => { }}
+                      onClick={() => navigate(`/products/edit/${id}`)}
                       name="create-outline"
                     ></ion-icon>
                     <ion-icon
