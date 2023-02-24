@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
         margin: 0,
         padding: `0 ${theme.spacing(1)}`,
         paddingTop: theme.spacing(2),
-        paddingBottom: theme.spacing(1.4),
+        paddingBottom: theme.spacing(1),
     },
     headerSearch: {
         padding: `${theme.spacing(1)} ${theme.spacing(4)}`,
