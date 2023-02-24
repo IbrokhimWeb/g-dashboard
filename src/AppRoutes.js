@@ -12,7 +12,7 @@ import CategoriesPage from "./pages/CategoriesPage";
 import CategoriesUpdatePage from "./pages/CategoriesUpdatePage";
 import ProductDetailPage from "./pages/ProductDetailPage/ProductDetailPage";
 import Products from "./Products";
-import ProductAdd from "./Products/components/ProductAdd/ProductAdd";
+import ProductAdd from "./Products/ProductAdd";
 import SliderList from "./Slider/Slider";
 import ProductAttribute from "./Products/components/ProductAttribute";
 import ProductAttributeEdit from "./Products/components/ProductAttributeEdit";
@@ -34,6 +34,7 @@ import SliderAdd from "./Slider/SliderAdd";
 import SliderEdit from "./Slider/SliderEdit";
 
 import ProductEdit from "./Products/ProductEdit";
+import InvetorAdd from "./Products/InvetorAdd";
 
 
 const AppRoutes = () => {
@@ -44,17 +45,10 @@ const AppRoutes = () => {
             <Route element={<PrivateRoute isAuth={isAuth} />}>
                 <Route path="/" element={<AppSidebar />}>
                     <Route index element={<HomePage />} />
-                    <Route path="products" element={<Products />} />
 
 
                     <Route path="attribute-values" element={<AttributeValue />} />
                     <Route path="attribute" element={<Attribute />} />
-                    <Route path="product-brand" element={<Brand />} />
-                    <Route path="product-inventors" element={<ProductInventors />} />
-                    <Route path="product-media" element={<ProductMedia />} />
-                    <Route path="product-stocks" element={<ProductStocks />} />
-                    <Route path="product-type-attribute" element={<ProductTypeAttributes />} />
-                    <Route path="product-type" element={<ProductType />} />
                     <Route path="stocks" element={<Stocks />} />
                     <Route path="users" element={<Users />} />
                     <Route path="checkout" element={<Checkout />} />
@@ -62,11 +56,26 @@ const AppRoutes = () => {
 
 
 
-
-                    <Route path="product-attribute-values" element={<ProductDetailPage />} />
+                    <Route path="products" element={<Products />} />
                     <Route path="products/add" element={<ProductAdd />} />
                     <Route path="products/edit/:id" element={<ProductEdit />} />
-                    
+
+                    <Route path="product-brand" element={<Brand />} />
+
+
+
+                    <Route path="product-inventors" element={<ProductInventors />} />
+                    <Route path="product-inventors/add" element={<InvetorAdd />} />
+
+
+
+                    <Route path="product-media" element={<ProductMedia />} />
+                    <Route path="product-stocks" element={<ProductStocks />} />
+                    <Route path="product-type-attribute" element={<ProductTypeAttributes />} />
+                    <Route path="product-type" element={<ProductType />} />
+
+                    <Route path="product-attribute-values" element={<ProductDetailPage />} />
+
 
 
                     <Route path="categories" element={<CategoriesPage />} />
@@ -87,7 +96,7 @@ const AppRoutes = () => {
 
                     <Route path="brands" element={<BrandsPage />} />
 
-                    
+
                     <Route path="aksiya" element={<BrandsPage />} />
 
                     <Route path="product_attribute" element={<ProductAttribute />} />
