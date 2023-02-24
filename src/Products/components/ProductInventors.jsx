@@ -82,7 +82,7 @@ const FilterBar = (props) => {
                 <Button
                     variant="primary"
                     color="primary"
-                    onClick={() => navigate("/products/add")}
+                    onClick={() => navigate("/product-inventors/add")}
                     // href={href}
                     style={{ width: "100%" }}
                 >
