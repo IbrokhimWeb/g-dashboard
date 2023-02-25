@@ -66,7 +66,7 @@ const FilterBar = (props) => {
 
     const handleRemuve = async (id) => {
         try {
-            await $host.delete(`dashboard/products/${id}/`);
+            await $host.delete(`dashboard/product-type-attribute/${id}/`);
             setReload((prev) => prev + 1);
         } catch (error) {
             console.error(error);
