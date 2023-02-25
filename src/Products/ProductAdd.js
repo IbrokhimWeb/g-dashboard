@@ -16,16 +16,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const SliderAdd = (props) => {
+const ProductAdd = (props) => {
     const params = useParams()
     const navigate = useNavigate();
     const [newData, setNewData] = useState({
         name: "",
         slug: "",
         description: "",
-        is_active: false,
-        is_recommended: false,
-        USA_product: false,
+        is_active: true,
+        is_recommended: true,
+        USA_product: true,
         status: "",
         user: 1,
         category: 0,
@@ -48,24 +48,24 @@ const SliderAdd = (props) => {
     //     , []);
 
     useEffect(() => {
-        $host.get("dashboard/categories/")
+        $host.get("dashboard/products/")
             .then((res) => setCategories(res.data.results))
             .catch((error) => console.error(error))
     }, []);
 
     return (
         <Container>
-            <Backlink onClick={() => navigate("/products")}>Категории</Backlink>
-            <PageHeader title="Создать новую Категории" />
+            <Backlink onClick={() => navigate("/products")}>Товары</Backlink>
+            <PageHeader title="Создать новый товар" />
             <div>
                 <Card>
                     <CardTitle title={"Основная информация"} />
                     <div className={classes.mainCardInfo}>
-                        <TextField type="url" fullWidth placeholder={"Название категории"} name="name" value={newData?.name} onChange={(e) => setNewData(prev => ({ ...prev, name: e.target.value }))} />
+                        <TextField type="url" fullWidth placeholder={"Название товара"} name="name" value={newData?.name} onChange={(e) => setNewData(prev => console.log(({ ...prev, name: e.target.value })))} />
                         <CardSpacer />
-                        <TextField type="url" fullWidth placeholder={"Название категории"} name="slug" value={newData?.slug} onChange={(e) => setNewData(prev => ({ ...prev, slug: e.target.value }))} />
+                        <TextField type="url" fullWidth placeholder={"slug товара"} name="slug" value={newData?.slug} onChange={(e) => setNewData(prev => ({ ...prev, slug: e.target.value }))} />
                         <CardSpacer />
-                        <TextField type="url" multiline fullWidth placeholder={"Название категории"} name="description" value={newData?.description} onChange={(e) => setNewData(prev => ({ ...prev, description: e.target.value }))} />
+                        <TextField type="url" multiline fullWidth placeholder={"Описание товара"} name="description" value={newData?.description} onChange={(e) => setNewData(prev => ({ ...prev, description: e.target.value }))} />
                         <CardSpacer />
                         <Checkbox checked={newData?.is_active ? true : false} onChange={e => setNewData(prev => ({ ...prev, is_active: e.target.checked }))} />is_active
                         <Checkbox checked={newData?.USA_product ? true : false} onChange={e => setNewData(prev => ({ ...prev, USA_product: e.target.checked }))} />USA_product
@@ -127,4 +127,4 @@ const SliderAdd = (props) => {
     );
 };
 
-export default SliderAdd;
+export default ProductAdd;

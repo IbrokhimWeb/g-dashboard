@@ -45,17 +45,17 @@ const SliderAdd = (props) => {
 
   return (
     <Container>
-      <Backlink onClick={() => navigate("/products")}>Категории</Backlink>
-      <PageHeader title="Создать новую Категории" />
+      <Backlink onClick={() => navigate("/products")}>Продукты</Backlink>
+      <PageHeader title="Создать новый товар" />
       <div>
         <Card>
           <CardTitle title={"Основная информация"} />
           <div className={classes.mainCardInfo}>
-            <TextField type="url" fullWidth placeholder={"Название категории"} name="name" value={newData?.name} onChange={(e) => setNewData(prev => ({ ...prev, name: e.target.value }))} />
+            <TextField type="url" fullWidth placeholder={"Название товара"} name="name" value={newData?.name} onChange={(e) => setNewData(prev => ({ ...prev, name: e.target.value }))} />
             <CardSpacer />
-            <TextField type="url" fullWidth placeholder={"Название категории"} name="slug" value={newData?.slug} onChange={(e) => setNewData(prev => ({ ...prev, slug: e.target.value }))} />
+            <TextField type="url" fullWidth placeholder={"slug товара"} name="slug" value={newData?.slug} onChange={(e) => setNewData(prev => ({ ...prev, slug: e.target.value }))} />
             <CardSpacer />
-            <TextField type="url" multiline fullWidth placeholder={"Название категории"} name="description" value={newData?.description} onChange={(e) => setNewData(prev => ({ ...prev, description: e.target.value }))} />
+            <TextField type="url" multiline fullWidth placeholder={"Описание товара"} name="description" value={newData?.description} onChange={(e) => setNewData(prev => ({ ...prev, description: e.target.value }))} />
             <CardSpacer />
             <Checkbox checked={newData?.is_active ? true : false} onChange={e => setNewData(prev => ({ ...prev, is_active: e.target.checked }))} />is_active
             <Checkbox checked={newData?.USA_product ? true : false} onChange={e => setNewData(prev => ({ ...prev, USA_product: e.target.checked }))} />USA_product

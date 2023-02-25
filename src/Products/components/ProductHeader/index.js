@@ -105,7 +105,7 @@ const FilterBar = (props) => {
               is_active ? (
                 <TableRow key={id}>
                   <TableCell> {id} </TableCell>
-                  <TableCell> {name} </TableCell>
+                  <TableCell onClick={() => navigate(`/products/${id}`)}> {name} </TableCell>
                   <TableCell> {created_at} </TableCell>
                   <TableCell> {updated_at} </TableCell>
                   <TableCell style={{ textAlign: "center" }}> {status} </TableCell>

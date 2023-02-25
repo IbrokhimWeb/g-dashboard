@@ -27,6 +27,8 @@ import ProductStocks from "./Products/components/ProductStocks";
 import ProductTypeAttributes from "./Products/components/ProductTypeAttribute";
 import ProductType from "./Products/components/ProductType";
 import Stocks from "./Products/components/Stocks";
+import StocksAdd from "./Products/components/StocksAdd";
+import StocksEdit from "./Products/components/StocksEdit";
 import Users from "./Products/components/Users";
 import UsersAdd from "./Products/components/UsersAdd";
 import UsersEdit from "./Products/components/UsersEdit"
@@ -106,15 +108,14 @@ const AppRoutes = () => {
                     <Route path="sliders/edit/:id" element={<SliderEdit />} />
 
 
-
-                    <Route path="sliders" element={<SliderList />} />
-
                     <Route path="brands" element={<BrandsPage />} />
                     <Route path="brands/add" element={<BrandsAdd />} />
                     <Route path="brands/edit/:id" element={<BrandsEdit />} />                    
 
 
-                    <Route path="aksiya" element={<BrandsPage />} />
+                    <Route path="stocks" element={<Stocks />} />
+                    <Route path="stocks/add" element={<StocksAdd />} />
+                    <Route path="stocks/edit/:id" element={<StocksEdit />} />
 
                     <Route path="product_attribute" element={<ProductAttribute />} />
                     <Route path="product-attribute/edit/:id" element={<ProductAttributeEdit />} />

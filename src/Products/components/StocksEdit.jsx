@@ -21,19 +21,20 @@ const useStyles = makeStyles(
 
 
 
-const UsersEdit = (props) => {
+const StocksEdit = (props) => {
     const navigate = useNavigate()
     const params = useParams();
     const [data, setData] = useState(null);
+    const [file, setFile] = useState(null);
     const classes = useStyles(props);
  
     const sendToPreviousURL = () => {
-        navigate("/users")
+        navigate("/stocks")
     }
 
     useEffect(() => {
         (async () =>
-            await $host.get(`dashboard/users/`)
+            await $host.get(`dashboard/stocks/`)
                 .then((res) => setData({ ...res.data.results.find(e => e.id === +params.id) }))
                 .catch((error) => console.error(error))
         )();
@@ -43,35 +44,38 @@ const UsersEdit = (props) => {
         setData(prevData => ({ ...prevData, [name]: value }))
     }
 
-
     const handleEdit = async () => {
         const formData = new FormData();
-        formData.append('first_name', data.first_name);
-        formData.append('phone_number', data.phone_number);
-        formData.append("is_active", data.is_active);
-        formData.append("is_staff", data.is_staff);
-        const res = await $host.patch(`/dashboard/users/${params?.id}/`, formData)
-        res?.statusText ? navigate("/users") : alert("Nimadir hato ketdi");
+        formData.append('url', data.url);
+        formData.append('images', file);
+        const res = await $host.patch(`/dashboard/stocks/${params?.id}/`, formData)
+        res?.statusText ? navigate("/stocks") : alert("Nimadir hato ketdi");
 
 
     };
 
-
-
     return (
         <Container>
-            <Backlink onClick={() => sendToPreviousURL()}>Пользователи</Backlink>
-            <PageHeader title="Редактировать пользователя" />
+            <Backlink onClick={() => sendToPreviousURL()}>Акции</Backlink>
+            <PageHeader title="Редактировать акцию" />
             <div>
                 <Card>
                     <CardTitle title={"Основная информация"} />
                     <div className={classes.mainCardInfo}>
-                        <TextField fullWidth placeholder={"Имя пользователя"} name="first_name" value={data?.first_name} onChange={(e) => handleChange(e.target)} />
+                        <TextField fullWidth placeholder={"url акции"} name="url" value={data?.url} onChange={(e) => handleChange(e.target)} />
                         <FormSpacer />
-                        <TextField fullWidth label={"Номер телефона"} name="phone_number" value={data?.phone_number} onChange={(e) => handleChange(e.target)} />
-                        <FormSpacer />
-                        <Checkbox checked={data?.is_active ? true : false} onChange={e => setData(prev => ({ ...prev, is_active: e.target.checked }))} />is_active
-                        <Checkbox checked={data?.is_staff ? true : false} onChange={e => setData(prev => ({ ...prev, is_staff: e.target.checked }))} />is_staff
+                        <Button variant="contained" component="label">
+                            Upload File
+                            <input
+                                type="file"
+                                onChange={(e) => setFile(e.target.files[0])}
+                                multiple
+                                hidden
+                            />
+                        </Button>
+                        <span style={{ marginLeft: "10px" }}>
+                            {file ? file.name : "Выберите изображение"}
+                        </span>
                     </div>
                 </Card>
                 <CardSpacer />
@@ -81,4 +85,4 @@ const UsersEdit = (props) => {
     );
 }
 
-export default UsersEdit;
+export default StocksEdit;

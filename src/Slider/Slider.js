@@ -126,7 +126,6 @@ const SliderList = memo(() => {
         <TableHead>
           <TableRow>
             <TableCell style={{ width: "20px" }}>Id</TableCell>
-            <TableCell>Названия слайдера</TableCell>
             <TableCell>Изображения слайдера</TableCell>
             <TableCell>Время создания</TableCell>
             <TableCell style={{width:"10%"}}>Действия</TableCell>
@@ -136,11 +135,6 @@ const SliderList = memo(() => {
           {sliders.map((slider) => (
             <TableRow key={slider.id}>
               <TableCell style={{ width: "20px" }}>{slider.id}</TableCell>
-              <TableCell>
-                <a style={{ color: "#c58af9" }} href={slider.url}>
-                  {slider.url}
-                </a>
-              </TableCell>
               <TableCell>
                 <img src={slider.images} alt={slider.slug} height={60} />
               </TableCell>
