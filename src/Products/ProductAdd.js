@@ -54,7 +54,7 @@ const ProductAdd = (props) => {
                 <Card>
                     <CardTitle title={"Основная информация"} />
                     <div className={classes.mainCardInfo}>
-                        <TextField fullWidth placeholder={"Название товара"} name="name" value={newData?.name} onChange={(e) => setNewData(prev => console.log(({ ...prev, name: e.target.value })))} />
+                        <TextField fullWidth placeholder={"Название товара"} name="name" value={newData?.name} onChange={(e) => setNewData(prev => ({ ...prev, name: e.target.value }))} />
                         <CardSpacer />
                         <TextField fullWidth placeholder={"slug товара"} name="slug" value={newData?.slug} onChange={(e) => setNewData(prev => ({ ...prev, slug: e.target.value }))} />
                         <CardSpacer />

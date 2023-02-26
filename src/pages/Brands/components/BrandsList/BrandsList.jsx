@@ -94,6 +94,7 @@ const useStyles = makeStyles(
 
 const BrandsList = memo(({ search }) => {
     const [data, setData] = React.useState([]);
+    const [reload, setReload] = React.useState(0);
     const classes = useStyles();
     const navigate = useNavigate();
     // const categories = useSelector((state) => state.categories);
@@ -106,7 +107,7 @@ const BrandsList = memo(({ search }) => {
                 .get("dashboard/brands/")
                 .then((res) => setBrands(res.data.results))
                 .catch((error) => console.error(error)),
-        []
+        [reload]
     );
 
     const handleRemuve = async (id) => {
@@ -116,6 +117,7 @@ const BrandsList = memo(({ search }) => {
                 data.filter((post) => {
                 return post.id != id;
             }));
+            setReload(prev => prev + 1)
         } catch (error) {
             console.error(error);
         }
