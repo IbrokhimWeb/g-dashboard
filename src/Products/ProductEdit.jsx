@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const SliderAdd = (props) => {
+const ProductEdit = (props) => {
   const params = useParams()
   const navigate = useNavigate();
   const [newData, setNewData] = useState(null);
@@ -114,4 +114,4 @@ const SliderAdd = (props) => {
   );
 };
 
-export default SliderAdd;
+export default ProductEdit;

@@ -41,18 +41,11 @@ const ProductAdd = (props) => {
         res?.statusText ? navigate("/products") : alert("Nimadir hato ketdi");
     };
 
-    // useEffect(() =>
-    //     $host.get(`/dashboard/products/`)
-    //         .then(({ data }) => setNewData(prev => ({ ...prev, name: data?.name, slug: data?.slug, description: data?.description, is_active: data?.is_active, is_recommended: data?.is_recommended, USA_product: data?.USA_product, status: data?.status, user: data?.user, category: data?.category })))
-    //         .catch((error) => console.error(error))
-    //     , []);
-
     useEffect(() => {
-        $host.get("dashboard/products/")
-            .then((res) => setCategories(res.data.results))
-            .catch((error) => console.error(error))
-    }, []);
-
+        $host.get("dashboard/categories/")
+          .then((res) => setCategories(res.data.results))
+          .catch((error) => console.error(error))
+      }, []);
     return (
         <Container>
             <Backlink onClick={() => navigate("/products")}>Товары</Backlink>
@@ -61,11 +54,11 @@ const ProductAdd = (props) => {
                 <Card>
                     <CardTitle title={"Основная информация"} />
                     <div className={classes.mainCardInfo}>
-                        <TextField type="url" fullWidth placeholder={"Название товара"} name="name" value={newData?.name} onChange={(e) => setNewData(prev => console.log(({ ...prev, name: e.target.value })))} />
+                        <TextField fullWidth placeholder={"Название товара"} name="name" value={newData?.name} onChange={(e) => setNewData(prev => console.log(({ ...prev, name: e.target.value })))} />
                         <CardSpacer />
-                        <TextField type="url" fullWidth placeholder={"slug товара"} name="slug" value={newData?.slug} onChange={(e) => setNewData(prev => ({ ...prev, slug: e.target.value }))} />
+                        <TextField fullWidth placeholder={"slug товара"} name="slug" value={newData?.slug} onChange={(e) => setNewData(prev => ({ ...prev, slug: e.target.value }))} />
                         <CardSpacer />
-                        <TextField type="url" multiline fullWidth placeholder={"Описание товара"} name="description" value={newData?.description} onChange={(e) => setNewData(prev => ({ ...prev, description: e.target.value }))} />
+                        <TextField multiline fullWidth placeholder={"Описание товара"} name="description" value={newData?.description} onChange={(e) => setNewData(prev => ({ ...prev, description: e.target.value }))} />
                         <CardSpacer />
                         <Checkbox checked={newData?.is_active ? true : false} onChange={e => setNewData(prev => ({ ...prev, is_active: e.target.checked }))} />is_active
                         <Checkbox checked={newData?.USA_product ? true : false} onChange={e => setNewData(prev => ({ ...prev, USA_product: e.target.checked }))} />USA_product

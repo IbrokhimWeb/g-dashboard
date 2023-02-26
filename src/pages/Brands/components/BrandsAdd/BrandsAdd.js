@@ -1,107 +1,134 @@
-import { Button, Card, Checkbox, makeStyles, MenuItem, TextField } from "@material-ui/core";
-import { Autocomplete, Backlink } from "@saleor/macaw-ui";
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { Box, Button, Card, Checkbox, FormControl, InputLabel, makeStyles, MenuItem, Select, TextField } from "@material-ui/core";
+import { Backlink } from "@saleor/macaw-ui";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CardSpacer from "../../../../components/CardSpacer";
-import CardTitle from "../../../../components/CardTitle";
 import Container from "../../../../components/Container";
-import FormSpacer from "../../../../components/FormSpacer/FormSpacer";
-import PageHeader from "../../../../components/PageHeader/";
+import PageHeader from "../../../../components/PageHeader";
 import $host from "../../../../http";
+import CardTitle from "../../../../components/CardTitle";
 
-const useStyles = makeStyles(
-    theme => ({
-        mainCardInfo: {
-            paddingTop: 0,
-            padding: `${theme.spacing(3)} ${theme.spacing(4)}`
-        },
-    })
-);
-
+const useStyles = makeStyles((theme) => ({
+    mainCardInfo: {
+        paddingTop: 0,
+        padding: `${theme.spacing(3)} ${theme.spacing(4)}`,
+    },
+}));
 
 
 const BrandsAdd = (props) => {
-    const navigate = useNavigate()
-    const [file, setFile] = useState(null)
+    const navigate = useNavigate();
+    const [newData, setNewData] = useState({
+        url: "",
+        category: 0,
+        product: 0
+    });
+    console.log(newData);
+    const [categories, setCategories] = useState(null);
+    const [products, setProducts] = useState(null);
+    const [isCategories, setIsCategories] = useState(newData?.category);
+    const [isProducts, SetIsProducts] = useState(newData?.product);
     const classes = useStyles(props);
 
-    const sendToPreviousURL = () => {
-        navigate("/brands")
-    }
-
-
-    const [newData, setNewData] = React.useState({
-        url: "",
-        category: "",
-        product: "",
-        is_active: false,
-    });
-    const handleChange = ({ name, value }) => {
-        setNewData(prevData => ({ ...prevData, [name]: value }))
-    }
-
     const handleSubmit = async () => {
-        const formData = new FormData();
-        formData.append("url", newData.url);
-        formData.append("category", newData.category);
-        formData.append("product", newData.product);
-        formData.append("images", file);
-        const res = await $host.post(`/dashboard/brands/`, formData)
+        const res = await $host.post(`/dashboard/brands/`, newData);
         res?.statusText ? navigate("/brands") : alert("Nimadir hato ketdi");
-    }
+    };
+
+    useEffect(() => {
+        $host.get("dashboard/categories/")
+          .then((res) => setCategories(res.data.results))
+          .catch((error) => console.error(error))
+      }, []);
+
+    useEffect(() => {
+        $host.get("dashboard/products/")
+            .then((res) => setProducts(res.data.results))
+            .catch((error) => console.error(error))
+    }, []);
 
     return (
         <Container>
-            <Backlink onClick={() => sendToPreviousURL()}>Brands</Backlink>
+            <Backlink onClick={() => navigate("/brands")}>Бренды</Backlink>
             <PageHeader title="Создать новый бренд" />
             <div>
                 <Card>
                     <CardTitle title={"Основная информация"} />
                     <div className={classes.mainCardInfo}>
-                    <TextField
-                        fullWidth
-                        label={"url бренда"}
-                        name="url"
-                        value={newData?.url}
-                        onChange={(e) => handleChange(e.target)}
-                    />
-                    <CardSpacer />
-                    <TextField
-                        fullWidth
-                        label={"категория бренда"}
-                        name="category"
-                        value={newData?.category}
-                        onChange={(e) => handleChange(e.target)}
-                    />
-                    <CardSpacer />
-                    <TextField
-                        fullWidth
-                        label={"продукт бренда"}
-                        name="product"
-                        value={newData?.product}
-                        onChange={(e) => handleChange(e.target)}
-                    />
-                    <CardSpacer />
-                    <Button variant="contained" component="label">
-                        Upload File
-                        <input
-                            type="file"
-                            onChange={(e) => setFile(e.target.files[0])}
-                            multiple
-                            hidden
-                        />
-                    </Button>
-                    <span style={{ marginLeft: "10px" }}>
-                        {file ? file.name : "Выберите изображение"}
-                    </span>
+                        <TextField fullWidth placeholder={"url бренда"} name="url" value={newData?.url} onChange={(e) => setNewData(prev => console.log(({ ...prev, name: e.target.value })))} />
+                        <CardSpacer />
+                        <Box sx={{ minWidth: 120 }}>
+                            <FormControl fullWidth>
+                                <InputLabel id="demo-simple-select-label">Категория бренда</InputLabel>
+                                {/* <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={age}
+                                    onChange={e => {
+                                        setAge(e.target.value);
+                                        setNewData(prev => ({ ...prev, category: e.target.value }))
+                                    }}
+                                >
+                                    {
+                                        ["process", "success", "failed", "deleted"].map((e, i) => (
+                                            <MenuItem key={i} value={e}>{e}</MenuItem>
+                                        ))
+                                    }
+
+                                </Select> */}
+                                <Select
+                                    labelId="demo-simple-gh-label"
+                                    id="demo-simple-select"
+                                    value={isCategories}
+                                    onChange={e => {
+                                        setIsCategories(e.target.value);
+                                        setNewData(prev => ({
+                                            ...prev, category
+                                                : e.target.value
+                                        }))
+                                    }}
+                                >
+                                    {
+                                        categories?.map(({ name, id }) => (<MenuItem key={id} value={id}>{name}</MenuItem>))
+                                    }   
+
+                                </Select>
+                            </FormControl>
+                            <CardSpacer />
+                            <FormControl fullWidth>
+                                <InputLabel id="demo-simple-gh-label">Продукт бренда</InputLabel>
+                                <Select
+                                    labelId="demo-simple-gh-label"
+                                    id="demo-simple-select"
+                                    value={isProducts}
+                                    onChange={e => {
+                                        SetIsProducts(e.target.value);
+                                        setNewData(prev => ({
+                                            ...prev, product
+                                                : e.target.value
+                                        }))
+                                    }}
+                                >
+                                    {
+                                        products?.map(({ name, id }) => (<MenuItem key={id} value={id}>{name}</MenuItem>))
+                                    }   
+
+                                </Select>
+                            </FormControl>
+                        </Box>
                     </div>
                 </Card>
-                <CardSpacer />
-                <Button onClick={handleSubmit}>Добавить</Button>
+
+                <Button
+                    style={{ float: "right", marginTop: "10px", padding: "10px 70px" }}
+                    variant="contained"
+                    onClick={handleSubmit}
+                >
+                    Save
+                </Button>
             </div>
         </Container>
     );
-}
+};
 
 export default BrandsAdd;
