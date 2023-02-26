@@ -128,6 +128,18 @@ const MenuStructure = () => {
                     id: "Заказы",
                     url: "/checkout",
                 },
+                {
+                    ariaLabel: "Номера",
+                    label: "Номера",
+                    id: "Номера",
+                    url: "/phone-site-settings",
+                },
+                {
+                    ariaLabel: "Ссылки",
+                    label: "Ссылки",
+                    id: "Ссылки",
+                    url: "/site-settings",
+                },
             ]
         },
         {

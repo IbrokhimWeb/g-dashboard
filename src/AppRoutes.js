@@ -33,7 +33,9 @@ import Users from "./Products/components/Users";
 import UsersAdd from "./Products/components/UsersAdd";
 import UsersEdit from "./Products/components/UsersEdit"
 import Checkout from "./Products/components/Checkout";
-
+import Phone from "./Products/components/Phone/Phone";
+import PhoneAdd from "./Products/components/Phone/PhoneAdd";
+import PhoneEdit from "./Products/components/Phone/PhoneEdit";
 import HomePage from "./pages/HomePage";
 import SliderAdd from "./Slider/SliderAdd";
 import SliderEdit from "./Slider/SliderEdit";
@@ -65,8 +67,9 @@ const AppRoutes = () => {
 
                     <Route path="checkout" element={<Checkout />} />
 
-
-
+                    <Route path="phone-site-settings" element={<Phone />} />
+                    <Route path="phone-site-settings/add" element={<PhoneAdd />} />
+                    <Route path="phone-site-settings/edit/:id" element={<PhoneEdit />} />
 
                     <Route path="products" element={<Products />} />
                     <Route path="products/add" element={<ProductAdd />} />
