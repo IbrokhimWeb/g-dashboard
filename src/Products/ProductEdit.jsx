@@ -45,8 +45,8 @@ const ProductEdit = (props) => {
 
   return (
     <Container>
-      <Backlink onClick={() => navigate("/products")}>Продукты</Backlink>
-      <PageHeader title="Создать новый товар" />
+      <Backlink onClick={() => navigate("/products")}>Товары</Backlink>
+      <PageHeader title="Редактировать товар" />
       <div>
         <Card>
           <CardTitle title={"Основная информация"} />

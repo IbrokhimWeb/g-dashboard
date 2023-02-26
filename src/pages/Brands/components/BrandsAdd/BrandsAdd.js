@@ -30,9 +30,9 @@ const BrandsAdd = (props) => {
   const navigate = useNavigate();
   const [newData, setNewData] = useState({
     url: "",
+    images: null,
     category: 0,
     product: 0,
-    file: null
   });
   console.log(newData);
   const [categories, setCategories] = useState(null);

@@ -89,7 +89,7 @@ const FilterBar = (props) => {
                     Создать аттрибут
                 </Button>
             </div>
-            <div style={{background: 'rgba(52, 56, 75, 1)', margin: '13px', borderRadius: '7px', padding: '23px 0'}}>
+            <div style={{margin: '13px', borderRadius: '7px', padding: '23px 0'}}>
             <div className={classes.headerSearch}>
                 <TextField
                     className={classes.headerInput}

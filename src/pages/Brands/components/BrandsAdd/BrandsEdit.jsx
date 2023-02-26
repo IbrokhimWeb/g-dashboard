@@ -1,85 +1,144 @@
-import { Button, Card, Checkbox, makeStyles, MenuItem, TextField } from "@material-ui/core";
-import { Autocomplete, Backlink } from "@saleor/macaw-ui";
+import { Box, Button, Card, Checkbox, FormControl, InputLabel, makeStyles, MenuItem, Select, TextField } from "@material-ui/core";
+import { Backlink } from "@saleor/macaw-ui";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import CardSpacer from "../../../../components/CardSpacer";
-import CardTitle from "../../../../components/CardTitle";
 import Container from "../../../../components/Container";
-import FormSpacer from "../../../../components/FormSpacer/FormSpacer";
 import PageHeader from "../../../../components/PageHeader";
 import $host from "../../../../http";
+import CardTitle from "../../../../components/CardTitle";
 
-const useStyles = makeStyles(
-    theme => ({
-        mainCardInfo: {
-            paddingTop: 0,
-            padding: `${theme.spacing(3)} ${theme.spacing(4)}`
-        },
-    })
-);
-
+const useStyles = makeStyles((theme) => ({
+  mainCardInfo: {
+    paddingTop: 0,
+    padding: `${theme.spacing(3)} ${theme.spacing(4)}`,
+  },
+}));
 
 
 const BrandsEdit = (props) => {
-    const navigate = useNavigate()
-    const params = useParams();
-    const [file, setFile] = useState(null)
-    const [data, setData] = useState(null);
-    const classes = useStyles(props);
+  const params = useParams()
+  const navigate = useNavigate();
+  const [newData, setNewData] = useState(null);
+  console.log(newData);
+  const [categories, setCategories] = useState(null);
+  const [products, setProducts] = useState(null);
+  const [age, setAge] = React.useState(newData?.status);
+  const [isCategories, setIsCategories] = useState(newData?.category);
+  const [isProducts, SetIsProducts] = useState(newData?.product);
+  const classes = useStyles(props);
 
-    const sendToPreviousURL = () => {
-        navigate("/brands")
-    }
+  const handleSubmit = async () => {
+    const res = await $host.put(`/dashboard/brands/${params.id}/`, newData);
+    res?.statusText ? navigate("/brands") : alert("Nimadir hato ketdi");
+  };
 
-    useEffect(() => {
-        (async () =>
-            await $host.get("dashboard/brands/")
-                .then((res) => setData({ ...res.data.results.find(e => e.id === +params.id) }))
-                .catch((error) => console.error(error))
-        )();
-    }, []);
+  useEffect(() =>
+    $host.get(`/dashboard/brands/${params.id}/`)
+      .then((res) => setNewData(res.data))
+      .catch((error) => console.error(error))
+    , []);
 
-    const handleChange = ({ name, value }) => {
-        setData(prevData => ({ ...prevData, [name]: value }))
-    }
+  useEffect(() => {
+    $host.get("dashboard/categories/")
+      .then((res) => setCategories(res.data.results))
+      .catch((error) => console.error(error))
+  }, []);
 
+  useEffect(() => {
+    $host.get("dashboard/products/")
+        .then((res) => setProducts(res.data.results))
+        .catch((error) => console.error(error))
+}, []);
 
-    const handleEdit = async () => {
-        const formData = new FormData();
-        formData.append("url", data.url);
-        formData.append("category", data.category);
-        formData.append("product", data.product);
-        formData.append("images", file);
-        const res = await $host.post(`/dashboard/brands/`, formData)
-        res?.statusText ? navigate("/brands") : alert("Nimadir hato ketdi");
-    }
-
-
-
-    return (
-        <Container>
-            <Backlink onClick={() => sendToPreviousURL()}>Brands</Backlink>
-            <PageHeader title="Редактировать бренд" />
-            <div>
-                <Card>
-                    <CardTitle title={"Основная информация"} />
-                    <div className={classes.mainCardInfo}>
-                        <TextField fullWidth placeholder={"url бренда"} name="url" value={data?.url} onChange={(e) => handleChange(e.target)} />
-                        <FormSpacer />
-                        <TextField fullWidth placeholder={"категория бренда"} name="category" value={data?.category} onChange={(e) => handleChange(e.target)} />
-                        <FormSpacer />
-                        <TextField fullWidth placeholder={"продукт бренда"} name="product" value={data?.product} onChange={(e) => handleChange(e.target)} />
-                        <FormSpacer />
-                        <Button variant="contained" component="label">Upload File<input type="file" onChange={(e) => setFile(e.target.files[0])} multiple hidden /></Button>
-                        <img style={{ borderRadius: "10px", marginTop: "10px", marginLeft: "20px", marginBottom: "-30px" }} width={70} src={data?.file} alt="" />
-                    </div>
-                </Card>
+return (
+    <Container>
+      <Backlink onClick={() => navigate("/brands")}>Бренды</Backlink>
+      <PageHeader title="Создать новый бренд" />
+      <div>
+        <Card>
+          <CardTitle title={"Основная информация"} />
+          <div className={classes.mainCardInfo}>
+            <TextField
+              fullWidth
+              placeholder={"url бренда"}
+              name="url"
+              value={newData?.url}
+              onChange={(e) => setNewData((prev) => ({ ...prev, url: e.target.value }))}
+            />
+            <CardSpacer />
+            <Box sx={{ minWidth: 120 }}>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">
+                  Категория бренда
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-gh-label"
+                  id="demo-simple-select"
+                  value={isCategories}
+                  onChange={(e) => {
+                    setIsCategories(e.target.value);
+                    setNewData((prev) => ({
+                      ...prev,
+                      category: e.target.value,
+                    }));
+                  }}
+                >
+                  {categories?.map(({ name, id }) => (
+                    <MenuItem key={id} value={id}>
+                      {name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <CardSpacer />
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-gh-label">
+                  Продукт бренда
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-gh-label"
+                  id="demo-simple-select"
+                  value={isProducts}
+                  onChange={(e) => {
+                    SetIsProducts(e.target.value);
+                    setNewData((prev) => ({
+                      ...prev,
+                      product: e.target.value,
+                    }));
+                  }}
+                >
+                  {products?.map(({ name, id }) => (
+                    <MenuItem key={id} value={id}>
+                      {name}
+                    </MenuItem>
+                  ))}
+                </Select>
                 <CardSpacer />
-                <Button onClick={handleEdit}>Сохранить</Button>
-            </div>
-        </Container>
-    );
-}
+                <Button  style={{width: "20%"}} component="label">
+                    Upload File
+                    <input
+                        type="file"
+                        onChange={(e) => setNewData(prev => ({...prev, images: e.target.files[0]}))}
+                        multiple
+                        hidden
+                    />
+                </Button>
+              </FormControl>
+            </Box>
+          </div>
+        </Card>
+
+        <Button
+          style={{ float: "right", marginTop: "10px", padding: "10px 70px" }}
+          variant="contained"
+          onClick={handleSubmit}
+        >
+          Save
+        </Button>
+      </div>
+    </Container>
+  );
+};
 
 export default BrandsEdit;
