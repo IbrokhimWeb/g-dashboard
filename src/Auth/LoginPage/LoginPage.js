@@ -53,13 +53,12 @@ const LoginPage = (props) => {
                 </div>
             )}
             <TextField
-                autoFocus
-                fullWidth
                 autoComplete="username"
                 label={'Номер телефона'}
                 name="number"
                 onChange={(e) => setNumber(e.target.value)}
                 value={number}
+                style={{width: "30%"}}
             />
             <FormSpacer/>
             <div className={classes.passwordWrapper}>
