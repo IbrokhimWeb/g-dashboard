@@ -1,24 +1,12 @@
-import {
-  Button,
-  Card,
-  Checkbox,
-  FormControl,
-  InputLabel,
-  makeStyles,
-  MenuItem,
-  Select,
-  TextField,
-} from "@material-ui/core";
-import { Autocomplete, Backlink } from "@saleor/macaw-ui";
+import { Box, Button, Card, Checkbox, FormControl, InputLabel, makeStyles, MenuItem, Select, TextField } from "@material-ui/core";
+import { Backlink } from "@saleor/macaw-ui";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import CardSpacer from "../../components/CardSpacer";
-import CardTitle from "../../components/CardTitle";
 import Container from "../../components/Container";
-import FormSpacer from "../../components/FormSpacer/FormSpacer";
 import PageHeader from "../../components/PageHeader";
 import $host from "../../http";
+import CardTitle from "../../components/CardTitle";
 
 const useStyles = makeStyles((theme) => ({
   mainCardInfo: {
@@ -27,70 +15,52 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 const ProductMediaEdit = (props) => {
+  const params = useParams()
   const navigate = useNavigate();
-  const params = useParams();
+  const [newData, setNewData] = useState(null);
+  console.log(newData);
+  const [products, setProducts] = useState(null);
+  const [isProducts, SetIsProducts] = useState(newData?.product_inventory);
   const classes = useStyles(props);
 
-  const [newData, setNewData] = useState({
-    img_url: null,
-    alt_text: "",
-    is_feature: false,
-    product_inventory: null,
-  });
-  const [products, setProducts] = useState(null)
-  const handleChange = ({ name, value }) => {
-    setNewData((prevData) => ({ ...prevData, [name]: value }));
-  };
-
-  useEffect(
-    () =>
-      $host.get(`dashboard/product-media/`).then((res) => console.log(res)),
-    []
-  );
-
-
-  useEffect(
-    () =>
-      $host.get(`dashboard/products/`)
-      .then((res) => setProducts(res.data.results))
-      .catch(err => console.error(err))
-      ,[]
-  );
-
   const handleSubmit = async () => {
-    const formData = new FormData();
-    formData.append("product_inventory", newData.product_inventory);
-    formData.append("is_feature", newData.is_feature);
-    formData.append("alt_text", newData.alt_text);
-    formData.append("img_url", newData.img_url);
-
-    const res = await $host.post(
-      `/dashboard/product-media/${params}/`,
-      formData
-    );
+    const res = await $host.put(`/dashboard/product-media/${params.id}/`, newData);
     res?.statusText ? navigate("/product-media") : alert("Nimadir hato ketdi");
   };
 
+  useEffect(() =>
+    $host.get(`/dashboard/product-media/${params.id}/`)
+      .then((res) => setNewData(res.data))
+      .catch((error) => console.error(error))
+    , []);
+
+  useEffect(() => {
+    $host.get("dashboard/product-inventors/")
+      .then((res) => setProducts(res.data.results))
+      .catch((error) => console.error(error))
+  }, []);
+
   return (
     <Container>
-      <Backlink onClick={() => navigate("/categories")}>Категории</Backlink>
-      <PageHeader title="Создать новую Категории" />
+      <Backlink onClick={() => navigate("/product-media")}>Медиа</Backlink>
+      <PageHeader title="Редактировать медиа" />
       <div>
         <Card>
           <CardTitle title={"Основная информация"} />
           <div className={classes.mainCardInfo}>
-            <TextField
+          <TextField
               fullWidth
-              label={"alt_text"}
+              placeholder={"alt_text"}
               name="alt_text"
               value={newData?.alt_text}
-              onChange={(e) => handleChange(e.target)}
+              onChange={(e) => setNewData((prev) => ({ ...prev, alt_text: e.target.value }))}
             />
             <Checkbox
-              checked={newData?.is_feature}
+              checked={newData?.is_feature ? true : false}
               onChange={(e) =>
-                setNewData((prev) => ({ ...prev, is_active: e.target.checked }))
+                setNewData((prev) => ({ ...prev, is_feature: e.target.checked }))
               }
             />
             is_feature <br />
@@ -98,13 +68,13 @@ const ProductMediaEdit = (props) => {
               Upload File
               <input
                 type="file"
-                onChange={(e) => newData(prev => ({...prev, img_url:e.target.files[0]}))}
+                onChange={(e) => setNewData(prev => ({...prev, img_url: e.target.files[0]}))}
                 multiple
                 hidden
               />
             </Button>
             <span style={{ marginLeft: "10px" }}>
-              {newData.img_url ? newData.img_url.name : "Выберите изображение"}
+              {newData?.img_url && "Выберите изображение"}
             </span>
           </div>
         </Card>
@@ -114,13 +84,14 @@ const ProductMediaEdit = (props) => {
                 <Select
                   labelId="demo-simple-gh-label"
                   id="demo-simple-select"
-                  value={newData.product_inventory}
+                  value={isProducts}
                   onChange={(e) => {
-                    newData(prev => ({...prev, }));
-                    setNewData(prev => ({ ...prev, product_inventory:e.target.value }))}}
+                    SetIsProducts(newData?.product_inventory);
+                    setNewData(prev => ({ 
+                      ...prev, product_inventory: e.target.value }))}}
                 >
                   {
-                    products?.map(({ name, id }) => (<MenuItem key={id} value={name}>{name}</MenuItem>))
+                    products?.map(({ id }) => (<MenuItem key={id} value={id}>{id}</MenuItem>))
                   }
 
                 </Select>

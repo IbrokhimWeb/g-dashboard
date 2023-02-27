@@ -47,6 +47,7 @@ import ProductEdit from "./Products/ProductEdit";
 import InvetorAdd from "./Products/InvetorAdd";
 import BrandsEdit from "./pages/Brands/components/BrandsAdd/BrandsEdit";
 import ProductMediaEdit from "./Products/components/ProductMediaEdit";
+import ProductMediaAdd from "./Products/components/ProductMediaAdd";
 
 
 const AppRoutes = () => {
@@ -92,6 +93,7 @@ const AppRoutes = () => {
 
 
                     <Route path="product-media" element={<ProductMedia />} />
+                    <Route path="product-media/add" element={<ProductMediaAdd />} />
                     <Route path="product-media/edit/:id" element={<ProductMediaEdit />} />
 
 

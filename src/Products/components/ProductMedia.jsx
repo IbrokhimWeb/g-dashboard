@@ -78,7 +78,7 @@ const ProductMedia = (props) => {
         <Button
           variant="primary"
           color="primary"
-          onClick={() => navigate("/products/add")}
+          onClick={() => navigate("/product-media/add")}
           // href={href}
           style={{ width: "100%" }}
         >

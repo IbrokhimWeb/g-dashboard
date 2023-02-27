@@ -54,13 +54,21 @@ const ProductAdd = (props) => {
                 <Card>
                     <CardTitle title={"Основная информация"} />
                     <div className={classes.mainCardInfo}>
-                        <TextField fullWidth placeholder={"Название товара"} name="name" value={newData?.name} onChange={(e) => setNewData(prev => ({ ...prev, name: e.target.value }))} />
+                        <TextField 
+                        fullWidth 
+                        placeholder={"Название товара"} 
+                        name="name" 
+                        value={newData?.name} 
+                        onChange={(e) => setNewData(prev => ({ ...prev, name: e.target.value }))} />
                         <CardSpacer />
                         <TextField fullWidth placeholder={"slug товара"} name="slug" value={newData?.slug} onChange={(e) => setNewData(prev => ({ ...prev, slug: e.target.value }))} />
                         <CardSpacer />
                         <TextField multiline fullWidth placeholder={"Описание товара"} name="description" value={newData?.description} onChange={(e) => setNewData(prev => ({ ...prev, description: e.target.value }))} />
                         <CardSpacer />
-                        <Checkbox checked={newData?.is_active ? true : false} onChange={e => setNewData(prev => ({ ...prev, is_active: e.target.checked }))} />is_active
+                        <Checkbox 
+                        checked={newData?.is_active ? true : false} 
+                        onChange={e => 
+                        setNewData(prev => ({ ...prev, is_active: e.target.checked }))} />is_active
                         <Checkbox checked={newData?.USA_product ? true : false} onChange={e => setNewData(prev => ({ ...prev, USA_product: e.target.checked }))} />USA_product
                         <Checkbox checked={newData?.is_recommended ? true : false} onChange={e => setNewData(prev => ({ ...prev, is_recommended: e.target.checked }))} />is_recommended
                         <br />
