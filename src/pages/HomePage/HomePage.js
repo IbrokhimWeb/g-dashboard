@@ -76,6 +76,7 @@ const useStyles = makeStyles(
 const HomePage = () => {
     const classes = useStyles();
     const { user: { user } } = useSelector((state) => state);
+    
     return (
         <Container>
             <div>

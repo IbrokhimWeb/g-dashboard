@@ -3,6 +3,7 @@ import React  from "react";
 import CardTitle from "../../../../components/CardTitle";
 import ResponsiveTable from "../../../../components/ResponsiveTable/ResponsiveTable";
 import TableRowLink from "../../../../components/TableRowLink/TableRowLink";
+import $host from "../../../../http";
 
 const useStyles = makeStyles(
     theme => ({
@@ -42,7 +43,20 @@ const useStyles = makeStyles(
 
 const HomeProductListCard = () => {
     const classes = useStyles();
-    
+    const [data, setData] = React.useState([]);
+    console.log(data);
+    const [reload, setReload] = React.useState(1);
+    const [search, setSearch] = React.useState("");
+    React.useEffect(() => {
+      (async () => {
+        try {
+          const res = await $host.get(`dashboard/products/`);
+          setData(res.data.results);
+        } catch (error) {
+          console.error(error);
+        }
+      })();
+    }, [reload]);
 
     return (
         <Card>
@@ -52,14 +66,24 @@ const HomeProductListCard = () => {
             />
             <CardContent className={classes.cardContent}>
                 <ResponsiveTable>
-                    <TableBody>
+                    <TableBody>{data
+            ?.filter((item) => {
+              return search?.toLowerCase() === ""
+                ? item
+                : item.name?.toLowerCase().includes(search.toLowerCase()) ||
+                String(item.id)
+                  ?.toLowerCase()
+                  .includes(search.toLowerCase());
+            })
+            .map(({ name }) =>  
                         <TableRowLink>
                             <TableCell colSpan={3} >
-                                <Typography>
-                                    Товары не найдены
+                                <Typography >
+                                    {name}
                                 </Typography>
                             </TableCell>
                         </TableRowLink>
+                    )}
                     </TableBody>
                 </ResponsiveTable>
             </CardContent>
