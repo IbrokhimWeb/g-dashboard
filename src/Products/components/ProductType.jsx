@@ -105,9 +105,9 @@ const FilterBar = (props) => {
                         <TableHead>
                             <TableRow >
                                 <TableCell>#</TableCell>
-                                <TableCell style={{ width: "100%", textAlign: "center" }}>name</TableCell>
-                                <TableCell style={{ textAlign: "center" }}>product_type_attributes</TableCell>
-                                {/* <TableCell style={{ textAligin: "center" }}>Действия</TableCell> */}
+                                <TableCell style={{ width: "70%" }}>name</TableCell>
+                                {/* <TableCell style={{ textAlign: "center" }}>product_type_attributes</TableCell> */}
+                                <TableCell style={{ width: "25%", textAlign: "center" }}>Действия</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -123,11 +123,10 @@ const FilterBar = (props) => {
                                 .map(({ id, name, product_type_attributes }) =>
                                     <TableRow key={id}>
                                         <TableCell> {id} </TableCell>
-                                        <TableCell style={{ width: "100%", textAlign: "center" }}>{name}</TableCell>
-                                        <TableCell style={{ textAlign: "center" }}>{product_type_attributes[0]} </TableCell>
-                                        {/* <TableCell
+                                        <TableCell style={{ width: "15%" }}>{name}</TableCell>
+                                        {/* <TableCell style={{ textAlign: "center" }}>{product_type_attributes[0]} </TableCell> */}
+                                        <TableCell
                                             style={{
-                                                width: "100%",
                                                 display: "flex",
                                                 alignItems: "center",
                                                 gap: "5px",
@@ -142,7 +141,7 @@ const FilterBar = (props) => {
                                                 onClick={() => handleRemuve(id)}
                                                 name="trash-outline"
                                             ></ion-icon>
-                                        </TableCell> */}
+                                        </TableCell>
                                     </TableRow>
                                 )}
                         </TableBody>

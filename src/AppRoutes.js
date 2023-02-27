@@ -100,7 +100,10 @@ const AppRoutes = () => {
 
 
                     <Route path="product-stocks" element={<ProductStocks />} />
+
                     <Route path="product-type-attribute" element={<ProductTypeAttributes />} />
+                    
+
                     <Route path="product-type" element={<ProductType />} />
 
                     <Route path="product-attribute-values" element={<ProductDetailPage />} />

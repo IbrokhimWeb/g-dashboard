@@ -50,14 +50,17 @@ const FilterBar = (props) => {
     const navigate = useNavigate();
     const [reload, setReload] = React.useState(1);
     const [data, setData] = React.useState([]);
-    console.error(data);
+    const [productName, setProductName] = React.useState([]);
+    const [productTypeName, setProductTypeName] = React.useState([]);
     const [search, setSearch] = React.useState("");
+    console.log(productTypeName);
 
     React.useEffect(() => {
         (async () => {
             try {
                 const res = await $host.get(`/dashboard/product-type-attribute/`);
                 setData(res.data.results);
+                setProductTypeName(res.data.results.map(e => e.product_types.product_type_attribute))
             } catch (error) {
                 console.error(error);
             }
