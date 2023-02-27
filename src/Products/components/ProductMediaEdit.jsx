@@ -26,7 +26,12 @@ const ProductMediaEdit = (props) => {
   const classes = useStyles(props);
 
   const handleSubmit = async () => {
-    const res = await $host.put(`/dashboard/product-media/${params.id}/`, newData);
+    const formData = new FormData();
+          formData.append("alt_text", newData.alt_text);
+          formData.append("is_feature", newData.is_feature);
+          formData.append("product_inventory", newData.product_inventory);
+          formData.append("img_url", newData.img_url);
+    const res = await $host.put(`/dashboard/product-media/${params.id}/`, formData);
     res?.statusText ? navigate("/product-media") : alert("Nimadir hato ketdi");
   };
 

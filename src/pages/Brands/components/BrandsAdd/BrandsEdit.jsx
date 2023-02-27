@@ -29,7 +29,13 @@ const BrandsEdit = (props) => {
   const classes = useStyles(props);
 
   const handleSubmit = async () => {
-    const res = await $host.put(`/dashboard/brands/${params.id}/`, newData);
+    const formData = new FormData();
+        formData.append("url", newData.url);
+        formData.append("category", newData.category);
+        formData.append("product", newData.product);
+        formData.append("images", newData.images);
+
+    const res = await $host.put(`/dashboard/brands/${params.id}/`, formData);
     res?.statusText ? navigate("/brands") : alert("Nimadir hato ketdi");
   };
 
