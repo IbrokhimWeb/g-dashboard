@@ -42,6 +42,7 @@ import SiteEdit from "./Products/components/Site/SiteEdit";
 import HomePage from "./pages/HomePage";
 import SliderAdd from "./Slider/SliderAdd";
 import SliderEdit from "./Slider/SliderEdit";
+import ChangePassword from "./Auth/ChangePassword/ChangePassword"
 
 import ProductEdit from "./Products/ProductEdit";
 import InvetorAdd from "./Products/InvetorAdd";
@@ -102,7 +103,7 @@ const AppRoutes = () => {
                     <Route path="product-stocks" element={<ProductStocks />} />
 
                     <Route path="product-type-attribute" element={<ProductTypeAttributes />} />
-                    
+
 
                     <Route path="product-type" element={<ProductType />} />
 
@@ -135,6 +136,8 @@ const AppRoutes = () => {
                     <Route path="product_attribute" element={<ProductAttribute />} />
                     <Route path="product-attribute/edit/:id" element={<ProductAttributeEdit />} />
                     <Route path="product-attribute/add" element={<ProductAttributeAdd />} />
+
+                    <Route path="change-password" element={<ChangePassword/>} />
                 </Route>
             </Route>
             <Route path="/auth" element={<Auth />}>

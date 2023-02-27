@@ -24,7 +24,7 @@ const UserCard = ({
       avatar={null}
     >
       <UserChipMenuItem>
-        <Link to="/">
+        <Link to="/change-password">
           Настройки аккаунта
         </Link>
       </UserChipMenuItem>
