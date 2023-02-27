@@ -44,16 +44,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const FilterBar = (props) => {
+const ProductMedia = (props) => {
   const classes = useStyles(props);
   const navigate = useNavigate();
   const [reload, setReload] = React.useState(1);
-  const [data, setData] = React.useState({
-    img_url: null,
-    alt_text: "",
-    is_feature: false,
-    product_inventory: null,
-  });
+  const [data, setData] = React.useState([]);
   console.log(data);
   const [search, setSearch] = React.useState("");
 
@@ -107,6 +102,7 @@ const FilterBar = (props) => {
               <TableRow>
                 <TableCell>#</TableCell>
                 <TableCell>Images</TableCell>
+                <TableCell>Text</TableCell>
                 <TableCell>created_at</TableCell>
                 <TableCell>updated_at</TableCell>
                 <TableCell>Actions</TableCell>
@@ -122,12 +118,13 @@ const FilterBar = (props) => {
                           ?.toLowerCase()
                           .includes(search.toLowerCase());
                 })
-                .map(({ id, img_url, created_at, updated_at }) => (
+                .map(({ id, img_url, alt_text, created_at, updated_at }) => (
                   <TableRow key={id}>
                     <TableCell> {id} </TableCell>
                     <TableCell style={{ width: "15%" }}>
                       <img height={40} src={img_url} alt="" />
                     </TableCell>
+                    <TableCell>{alt_text}</TableCell>
                     <TableCell style={{ width: "50%" }}>{created_at}</TableCell>
                     <TableCell style={{ width: "50%" }}>
                       {updated_at}{" "}
@@ -160,4 +157,4 @@ const FilterBar = (props) => {
   );
 };
 
-export default FilterBar;
+export default ProductMedia;
