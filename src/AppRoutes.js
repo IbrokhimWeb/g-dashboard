@@ -25,6 +25,7 @@ import ProductInventors from "./Products/components/ProductInventors";
 import ProductMedia from "./Products/components/ProductMedia";
 import ProductStocks from "./Products/components/ProductStocks";
 import ProductTypeAttributes from "./Products/components/ProductTypeAttribute";
+import ProductTypeAttributesAdd from "./Products/components/ProductTypeAttributeAdd";
 import ProductType from "./Products/components/ProductType";
 import Stocks from "./Products/components/Stocks";
 import StocksAdd from "./Products/components/StocksAdd";
@@ -103,6 +104,7 @@ const AppRoutes = () => {
                     <Route path="product-stocks" element={<ProductStocks />} />
 
                     <Route path="product-type-attribute" element={<ProductTypeAttributes />} />
+                    <Route path="product-type-attribute/add" element={<ProductTypeAttributesAdd />} />
 
 
                     <Route path="product-type" element={<ProductType />} />

@@ -1,7 +1,7 @@
 import { Card, CardContent, List, ListItem, ListItemText, makeStyles, Typography } from "@material-ui/core";
 import React from "react";
 import CardTitle from "../../../../components/CardTitle";
-
+import $host from "../../../../http";
 const useStyles = makeStyles(
     {
       loadingProducts: {
@@ -18,10 +18,25 @@ const useStyles = makeStyles(
     },
     { name: "HomeActivityCard" },
 );
-  
+
+
 
 const HomeActivityCard = () => {
-    const classes = useStyles();
+const classes = useStyles();
+const [data, setData] = React.useState([]);
+const [reload, setReload] = React.useState(1);
+React.useEffect(() =>{
+    (async () =>{
+        try {
+            const res = await $host.get(`checkout/checkout/all/?limit=10`);
+             setData(res.data.results);
+             console.log(res.data.results);
+          } catch (error) {
+            console.error(error);
+          }
+        })();
+      }, [reload]);
+      
 
     return (
         <Card>
@@ -30,56 +45,23 @@ const HomeActivityCard = () => {
             />
             <CardContent>
                 <List dense>
-                    <ListItem className={classes.listItem}>
+                {data?.map((e) =>(
+                    <ListItem className={classes.listItem} style={{
+                        display: "flex",
+                        flexDirection:" column"
+                    }}>
+                    {e.cart.map((el)=>(
                         <ListItemText
-                            primary={
-                                <Typography>
-                                    Заказ № 12789 был размещен
-                                </Typography>
-                            }
-                            secondary={"4 часа назад"}
-                        />
+                         primary={
+                             <Typography variant="p">
+                                Заказ № {el.id} был размещен   
+                             </Typography>
+                         }
+                         secondary={el.created_at}
+                     />
+                    )) }
                     </ListItem>
-                    <ListItem className={classes.listItem}>
-                        <ListItemText
-                            primary={
-                                <Typography>
-                                    Заказ № 12789 был размещен
-                                </Typography>
-                            }
-                            secondary={"4 часа назад"}
-                        />
-                    </ListItem>
-                    <ListItem className={classes.listItem}>
-                        <ListItemText
-                            primary={
-                                <Typography>
-                                    Заказ № 12789 был размещен
-                                </Typography>
-                            }
-                            secondary={"4 часа назад"}
-                        />
-                    </ListItem>
-                    <ListItem className={classes.listItem}>
-                        <ListItemText
-                            primary={
-                                <Typography>
-                                    Заказ № 12789 был размещен
-                                </Typography>
-                            }
-                            secondary={"4 часа назад"}
-                        />
-                    </ListItem>
-                    <ListItem className={classes.listItem}>
-                        <ListItemText
-                            primary={
-                                <Typography>
-                                    Заказ № 12789 был размещен
-                                </Typography>
-                            }
-                            secondary={"4 часа назад"}
-                        />
-                    </ListItem>
+                    ))}
                 </List>
             </CardContent>
         </Card>

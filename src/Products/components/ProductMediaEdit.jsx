@@ -96,7 +96,13 @@ const ProductMediaEdit = (props) => {
                       ...prev, product_inventory: e.target.value }))}}
                 >
                   {
-                    products?.map(({ id }) => (<MenuItem key={id} value={id}>{id}</MenuItem>))
+                    products?.map((item) => (
+                      <MenuItem 
+                        key={item.id} 
+                        value={item.id}>
+                          {item.products.name}
+                        </MenuItem>
+                    ))
                   }
 
                 </Select>

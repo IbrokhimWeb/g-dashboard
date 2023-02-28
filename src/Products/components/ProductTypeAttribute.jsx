@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const FilterBar = (props) => {
+const ProductTypeAttributes = (props) => {
   const classes = useStyles(props);
   const navigate = useNavigate();
   const [reload, setReload] = React.useState(1);
@@ -77,7 +77,7 @@ const FilterBar = (props) => {
         <Button
           variant="primary"
           color="primary"
-          onClick={() => navigate("/products/add")}
+          onClick={() => navigate("/product-type-attribute/add")}
           // href={href}
           style={{ width: "100%" }}
         >
@@ -157,4 +157,4 @@ const FilterBar = (props) => {
   );
 };
 
-export default FilterBar;
+export default ProductTypeAttributes;
