@@ -12,7 +12,7 @@ import {
   } from "@material-ui/core";
   import { Backlink } from "@saleor/macaw-ui";
   import React, { useEffect, useState } from "react";
-  import { useNavigate } from "react-router-dom";
+  import { useNavigate, useParams } from "react-router-dom";
   import CardSpacer from "../../components/CardSpacer";
   import Container from "../../components/Container";
   import PageHeader from "../../components/PageHeader";
@@ -28,28 +28,23 @@ import { formToJSON } from "axios";
     },
   }));
   
-  const ProductTypeAdd = (props) => {
+  const ProductTypeEdit = (props) => {
+    const params = useParams();
     const navigate = useNavigate();
-    const [newData, setNewData] = useState({
-        name: "",
-        product_type_attribute: 0,
-    });
+    const [newData, setNewData] = useState(null);
     console.log(newData);
     const [productsTypeAttribute, setProductsTypeAttribute] = useState(null);
     const [isProductsTypeAttribute, setIsProductsTypeAttribute] = useState(newData?.product_type_attribute);
     const classes = useStyles(props);
   
       const handleSubmit = async () => {
-        const formData = new FormData();
-        formData.append('name', newData.name);
-        formData.append('product_type_attribute', newData.product_type_attribute);
-      const res = await $host.post(`/dashboard/product-type/`, 
+      const res = await $host.put(`/dashboard/product-type/${params.id}/`, 
     //   {
     //     product_type_attributes: {
     //       name: newData.product_type_attribute,
     //     },
     //   }
-    formData);
+    newData);
       res?.statusText ? navigate("/product-type") : alert("Nimadir hato ketdi");
     };
   
@@ -63,7 +58,7 @@ import { formToJSON } from "axios";
     return (
       <Container>
         <Backlink onClick={() => navigate("/product-type")}>Тип продуктов</Backlink>
-        <PageHeader title="Создать новый тип продукта" />
+        <PageHeader title="Редактировать тип продукта" />
         <div>
         <Card>
         <CardTitle title={"Основная информация"} />
@@ -82,7 +77,7 @@ import { formToJSON } from "axios";
                 id="demo-simple-select"
                 value={isProductsTypeAttribute}
                 onChange={e => {
-                    setIsProductsTypeAttribute(newData?.product_type_attribute);
+                    setIsProductsTypeAttribute(e.target.value);
                     setNewData(prev => ({
                     ...prev, product_type_attribute
                          : e.target.value
@@ -116,5 +111,5 @@ import { formToJSON } from "axios";
     );
   };
   
-  export default ProductTypeAdd;
+  export default ProductTypeEdit;
   

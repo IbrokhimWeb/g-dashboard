@@ -12,6 +12,7 @@ import CategoriesEdit from "./pages/CategoriesAdd/CategoriesEdit";
 import CategoriesPage from "./pages/CategoriesPage";
 import CategoriesUpdatePage from "./pages/CategoriesUpdatePage";
 import ProductDetailPage from "./pages/ProductDetailPage/ProductDetailPage";
+import ProductDetailsPageAdd from "./pages/ProductDetailPage/ProductDetailsPageAdd";
 import Products from "./Products";
 import ProductAdd from "./Products/ProductAdd";
 import SliderList from "./Slider/Slider";
@@ -27,6 +28,8 @@ import ProductStocks from "./Products/components/ProductStocks";
 import ProductTypeAttributes from "./Products/components/ProductTypeAttribute";
 import ProductTypeAttributesAdd from "./Products/components/ProductTypeAttributeAdd";
 import ProductType from "./Products/components/ProductType";
+import ProductTypeAdd from "./Products/components/ProductTypeAdd";
+import ProductTypeEdit from "./Products/components/ProductTypeEdit";
 import Stocks from "./Products/components/Stocks";
 import StocksAdd from "./Products/components/StocksAdd";
 import StocksEdit from "./Products/components/StocksEdit";
@@ -108,8 +111,11 @@ const AppRoutes = () => {
 
 
                     <Route path="product-type" element={<ProductType />} />
+                    <Route path="product-type/add" element={<ProductTypeAdd />} />
+                    <Route path="product-type/edit/:id" element={<ProductTypeEdit />} />
 
                     <Route path="product-attribute-values" element={<ProductDetailPage />} />
+                    <Route path="product-attribute-values/add" element={<ProductDetailsPageAdd />} />
 
 
 

@@ -66,7 +66,7 @@ const FilterBar = (props) => {
 
     const handleRemuve = async (id) => {
         try {
-            await $host.delete(`dashboard/products/${id}/`);
+            await $host.delete(`dashboard/product-type/${id}/`);
             setReload((prev) => prev + 1);
         } catch (error) {
             console.error(error);
@@ -82,7 +82,7 @@ const FilterBar = (props) => {
                 <Button
                     variant="primary"
                     color="primary"
-                    onClick={() => navigate("/products/add")}
+                    onClick={() => navigate("/product-type/add")}
                     // href={href}
                     style={{ width: "100%" }}
                 >
@@ -134,7 +134,7 @@ const FilterBar = (props) => {
                                             }}
                                         >
                                             <ion-icon
-                                                onClick={() => { }}
+                                                onClick={() => navigate(`/product-type/edit/${id}`)}
                                                 name="create-outline"
                                             ></ion-icon>
                                             <ion-icon

@@ -39,14 +39,13 @@ import { formToJSON } from "axios";
     const [productsType, setProductsType] = useState(null);
     const [isProductsType, setIsProductsType] = useState(newData?.product_type);
     const [productsAttribute, setProductsAttribute] = useState(null);
-    const [isProductsAttribute, SetIsProductsAttribute] = useState(newData?.product_attribute);
+    const [isProductsAttribute, setIsProductsAttribute] = useState(newData?.product_attribute);
     const classes = useStyles(props);
   
       const handleSubmit = async () => {
       const res = await $host.post(`/dashboard/product-type-attribute/`, {
         product_attributes: {
           name: newData.product_attribute,
-          description: ''
         },
         product_types: {
           name: newData.product_type
@@ -102,14 +101,14 @@ import { formToJSON } from "axios";
                   </Select>
             </FormControl>
             <FormSpacer />
-            <FormControl fullWidth>
+            {/* <FormControl fullWidth>
                 <InputLabel id="demo-simple-gh-label">Атрибут продуктов</InputLabel>
                 <Select
                 labelId="demo-simple-gh-label"
                 id="demo-simple-select"
                 value={isProductsAttribute}
                 onChange={e => {
-                    SetIsProductsAttribute(newData?.product_attribute);
+                    setIsProductsAttribute(newData?.product_attribute);
                     setNewData(prev => ({
                     ...prev, product_attribute
                          : e.target.value
@@ -127,7 +126,7 @@ import { formToJSON } from "axios";
                   }   
 
                   </Select>
-            </FormControl>
+            </FormControl> */}
             </div>
           <Button
             style={{ float: "right", marginTop: "10px", padding: "10px 70px" }}
