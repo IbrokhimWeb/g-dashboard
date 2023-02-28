@@ -18,6 +18,8 @@ import {
   import PageHeader from "../../components/PageHeader";
   import $host from "../../http";
   import CardTitle from "../../components/CardTitle";
+import FormSpacer from "../../components/FormSpacer/FormSpacer";
+import { formToJSON } from "axios";
   
   const useStyles = makeStyles((theme) => ({
     mainCardInfo: {
@@ -26,97 +28,107 @@ import {
     },
   }));
   
-  const ProductMediaAdd = (props) => {
+  const ProductTypeAttributeAdd = (props) => {
     const navigate = useNavigate();
     const [newData, setNewData] = useState({
-        img_url: null,
-        alt_text: "",
-        is_feature: true,
-        product_inventory: 0,
+        
+        product_attribute: 0,
+        product_type: 0,
     });
     console.log(newData);
-    const [products, setProducts] = useState(null);
-    const [isProducts, SetIsProducts] = useState(newData?.product_inventory);
+    const [productsType, setProductsType] = useState(null);
+    const [isProductsType, setIsProductsType] = useState(newData?.product_type);
+    const [productsAttribute, setProductsAttribute] = useState(null);
+    const [isProductsAttribute, SetIsProductsAttribute] = useState(newData?.product_attribute);
     const classes = useStyles(props);
   
       const handleSubmit = async () => {
-          const formData = new FormData();
-          formData.append("alt_text", newData.alt_text);
-          formData.append("is_feature", newData.is_feature);
-          formData.append("product_inventory", newData.product_inventory);
-          formData.append("img_url", newData.img_url);
-  
-      const res = await $host.post(`/dashboard/product-media/`, formData);
-      res?.statusText ? navigate("/product-media") : alert("Nimadir hato ketdi");
+      const res = await $host.post(`/dashboard/product-type-attribute/`, {
+        product_attributes: {
+          name: newData.product_attribute,
+          description: ''
+        },
+        product_types: {
+          name: newData.product_type
+        },
+      });
+      res?.statusText ? navigate("/product-type-attribute") : alert("Nimadir hato ketdi");
     };
   
     useEffect(() => {
       $host
-        .get("dashboard/product-inventors/")
-        .then((res) => setProducts(res.data.results))
+        .get("dashboard/product-type/")
+        .then((res) => setProductsType(res.data.results))
+        .catch((error) => console.error(error));
+    }, []);
+
+    useEffect(() => {
+      $host
+        .get("dashboard/product-attribute/")
+        .then((res) => setProductsAttribute(res.data.results))
         .catch((error) => console.error(error));
     }, []);
   
     return (
       <Container>
-        <Backlink onClick={() => navigate("/product-media")}>Медиа</Backlink>
-        <PageHeader title="Создать новый медиа" />
+        <Backlink onClick={() => navigate("/product-type-attribute")}>Тип аттрибутов продукта</Backlink>
+        <PageHeader title="Создать новый тип аттрибутов продукта" />
         <div>
-          <Card>
-            <CardTitle title={"Основная информация"} />
-            <div className={classes.mainCardInfo}>
-            <TextField
-              fullWidth
-              placeholder={"alt_text"}
-              name="alt_text"
-              value={newData?.alt_text}
-              onChange={(e) => setNewData((prev) => ({ ...prev, alt_text: e.target.value }))}
-            />
-              <Checkbox 
-                checked={newData?.is_feature ? true : false} 
-                onChange={e => 
-                setNewData(prev => ({ ...prev, is_feature: e.target.checked }))} />is_active <br />
-              <Button  component="label">
-                    Upload File
-                    <input
-                        type="file"
-                        onChange={(e) => setNewData((prev) => ({...prev, img_url: e.target.files[0]}))}
-                        multiple
-                        hidden
-                    />
-                </Button>
-                <span style={{ marginLeft: "10px" }}>
-              {newData?.img_url && "Выберите изображение"}
-            </span>
-            </div>
-          </Card>
-          <CardSpacer />
+        <div className={classes.mainCardInfo}>
           <FormControl fullWidth>
-                <InputLabel id="demo-simple-gh-label">ProductInventory</InputLabel>
+                <InputLabel id="demo-simple-gh-label">Тип продуктов</InputLabel>
                 <Select
                 labelId="demo-simple-gh-label"
                 id="demo-simple-select"
-                value={isProducts}
+                value={isProductsType}
                 onChange={e => {
-                    SetIsProducts(newData?.product_inventory);
+                    setIsProductsType(newData?.product_type);
                     setNewData(prev => ({
-                    ...prev, product_inventory
+                    ...prev, product_type
                          : e.target.value
                                 }))
                                 }}
                                 >
                                     {
-                    products?.map((item) => (
+                    productsType?.map((name) => (
                       <MenuItem 
-                        key={item.id} 
-                        value={item.id}>
-                          {item.products.name}
+                        key={name.id} 
+                        value={name.name}>
+                          {name.name}
                         </MenuItem>
                     ))
                   }   
 
-                                </Select>
-                            </FormControl>
+                  </Select>
+            </FormControl>
+            <FormSpacer />
+            <FormControl fullWidth>
+                <InputLabel id="demo-simple-gh-label">Атрибут продуктов</InputLabel>
+                <Select
+                labelId="demo-simple-gh-label"
+                id="demo-simple-select"
+                value={isProductsAttribute}
+                onChange={e => {
+                    SetIsProductsAttribute(newData?.product_attribute);
+                    setNewData(prev => ({
+                    ...prev, product_attribute
+                         : e.target.value
+                                }))
+                                }}
+                                >
+                                    {
+                    productsAttribute?.map((name) => (
+                      <MenuItem 
+                        key={name.id} 
+                        value={name.name}>
+                          {name.name}
+                        </MenuItem>
+                    ))
+                  }   
+
+                  </Select>
+            </FormControl>
+            </div>
           <Button
             style={{ float: "right", marginTop: "10px", padding: "10px 70px" }}
             variant="contained"
@@ -129,5 +141,5 @@ import {
     );
   };
   
-  export default ProductMediaAdd;
+  export default ProductTypeAttributeAdd;
   

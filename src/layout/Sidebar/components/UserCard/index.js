@@ -23,11 +23,11 @@ const UserCard = ({
       name={user.phone_number}
       avatar={null}
     >
-      <UserChipMenuItem>
+      {/* <UserChipMenuItem>
         <Link to="/change-password">
           Настройки аккаунта
         </Link>
-      </UserChipMenuItem>
+      </UserChipMenuItem> */}
       <UserChipMenuItem onClick={onLogout}>
         Выйти
       </UserChipMenuItem>
