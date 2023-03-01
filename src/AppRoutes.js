@@ -13,6 +13,7 @@ import CategoriesPage from "./pages/CategoriesPage";
 import CategoriesUpdatePage from "./pages/CategoriesUpdatePage";
 import ProductDetailPage from "./pages/ProductDetailPage/ProductDetailPage";
 import ProductDetailsPageAdd from "./pages/ProductDetailPage/ProductDetailsPageAdd";
+import ProductDetailsPageEdit from "./pages/ProductDetailPage/ProductDetailsPageEdit";
 import Products from "./Products";
 import ProductAdd from "./Products/ProductAdd";
 import SliderList from "./Slider/Slider";
@@ -116,8 +117,7 @@ const AppRoutes = () => {
 
                     <Route path="product-attribute-values" element={<ProductDetailPage />} />
                     <Route path="product-attribute-values/add" element={<ProductDetailsPageAdd />} />
-
-
+                    <Route path="product-attribute-values/edit/:id" element={<ProductDetailsPageEdit />} />
 
                     <Route path="categories" element={<CategoriesPage />} />
                     <Route path="category/:id" element={<CategoriesUpdatePage />} />

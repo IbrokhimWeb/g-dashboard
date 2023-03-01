@@ -36,6 +36,7 @@ import { formToJSON } from "axios";
     });
     console.log(newData);
     const [productsTypeAttribute, setProductsTypeAttribute] = useState(null);
+    console.log(productsTypeAttribute);
     const [isProductsTypeAttribute, setIsProductsTypeAttribute] = useState(newData?.product_type_attribute);
     const classes = useStyles(props);
   
@@ -82,7 +83,7 @@ import { formToJSON } from "axios";
                 id="demo-simple-select"
                 value={isProductsTypeAttribute}
                 onChange={e => {
-                    setIsProductsTypeAttribute(newData?.product_type_attribute);
+                    setIsProductsTypeAttribute(e.target.value);
                     setNewData(prev => ({
                     ...prev, product_type_attribute
                          : e.target.value
@@ -93,7 +94,7 @@ import { formToJSON } from "axios";
                     productsTypeAttribute?.map((name) => (
                       <MenuItem 
                         key={name.id} 
-                        value={name.name}>
+                        value={name.id}>
                           {name.name}
                         </MenuItem>
                     ))

@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const ProductDetailsPageAdd = (props) => {
+const ProductDetailsPageEdit = (props) => {
     const params = useParams()
     const navigate = useNavigate();
     const [newData, setNewData] = useState(null);
@@ -28,7 +28,7 @@ const ProductDetailsPageAdd = (props) => {
     const classes = useStyles(props);
 
     const handleSubmit = async () => {
-        const res = await $host.post(`/dashboard/product-attribute-values/`, newData);
+        const res = await $host.put(`/dashboard/product-attribute-values/${params.id}/`, newData);
         res?.statusText ? navigate("/product-attribute-values") : alert("Nimadir hato ketdi");
     };
 
@@ -37,13 +37,7 @@ const ProductDetailsPageAdd = (props) => {
           .then((res) => setAttribute(res.data.results))
           .catch((error) => console.error(error))
       }, []);
-
-      useEffect(() => {
-        $host.get("dashboard/product-inventors/")
-          .then((res) => setInventors(res.data.results))
-          .catch((error) => console.error(error))
-      }, []);
-      
+            
     return (
         <Container>
             <Backlink onClick={() => navigate("/product-attribute-values")}>Атрибут продукта 2</Backlink>
@@ -110,4 +104,4 @@ const ProductDetailsPageAdd = (props) => {
     );
 };
 
-export default ProductDetailsPageAdd;
+export default ProductDetailsPageEdit;

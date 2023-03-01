@@ -141,7 +141,7 @@ import {
                         }}
                       >
                         <ion-icon
-                          onClick={() => {}}
+                          onClick={() => navigate(`/product-attribute-values/edit/${id}`)}
                           name="create-outline"
                         ></ion-icon>
                         <ion-icon
