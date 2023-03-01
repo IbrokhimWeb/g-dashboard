@@ -54,8 +54,6 @@ const PhoneEdit = (props) => {
 
     };
 
-
-
     return (
         <Container>
             <Backlink onClick={() => sendToPreviousURL()}>Номера</Backlink>
