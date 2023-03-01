@@ -7,7 +7,7 @@ import SVG from "react-inlinesvg";
 import { Outlet } from "react-router-dom";
 
 const useStyles = makeStyles(
-  theme => ({
+  (theme) => ({
     logo: {
       display: "block",
       height: 40,
@@ -68,34 +68,32 @@ const useStyles = makeStyles(
   }),
   {
     name: "Layout",
-  },
+  }
 );
 
 const Auth = (props) => {
-    const classes = useStyles(props);
-    const { themeType } = useTheme();
+  const classes = useStyles(props);
+  const { themeType } = useTheme();
 
-    return (
-        <div className={classes.root}>
-            <div className={classes.mainPanel}>
-                {/* <SVG
+  return (
+    <div className={classes.root}>
+      <div className={classes.mainPanel}>
+        {/* <SVG
                     className={classes.logo}
                     src={gipermartLogo}
                 /> */}
-                <div>
-                    <img 
-                        src={gipermartLogo}
-                    />
-                </div>
-                <div className={classes.mainPanelContent}>
-                    <Outlet/>
-                </div>
-            </div>
-            <div className={classes.sidebar}>
-                <SVG className={classes.sidebarArt} src={backgroundArt} />
-            </div>
+        <div>
+          <img src={gipermartLogo} />
         </div>
-    );
-}
+        <div className={classes.mainPanelContent}>
+          <Outlet />
+        </div>
+      </div>
+      <div className={classes.sidebar}>
+        <SVG className={classes.sidebarArt} src={backgroundArt} />
+      </div>
+    </div>
+  );
+};
 
 export default Auth;
