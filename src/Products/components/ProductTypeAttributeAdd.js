@@ -74,6 +74,33 @@ import { formToJSON } from "axios";
         <PageHeader title="Создать новый тип аттрибутов продукта" />
         <div>
         <div className={classes.mainCardInfo}>
+        <FormControl fullWidth>
+                <InputLabel id="demo-simple-gh-label">Атрибут продуктов</InputLabel>
+                <Select
+                labelId="demo-simple-gh-label"
+                id="demo-simple-select"
+                value={isProductsAttribute}
+                onChange={e => {
+                    setIsProductsAttribute(newData?.product_attribute);
+                    setNewData(prev => ({
+                    ...prev, product_attribute
+                         : e.target.value
+                                }))
+                                }}
+                                >
+                                    {
+                    productsAttribute?.map((name) => (
+                      <MenuItem 
+                        key={name.id} 
+                        value={name.name}>
+                          {name.name}
+                        </MenuItem>
+                    ))
+                  }   
+
+                  </Select>
+            </FormControl>
+            <FormSpacer />
           <FormControl fullWidth>
                 <InputLabel id="demo-simple-gh-label">Тип продуктов</InputLabel>
                 <Select
@@ -100,33 +127,6 @@ import { formToJSON } from "axios";
 
                   </Select>
             </FormControl>
-            <FormSpacer />
-            {/* <FormControl fullWidth>
-                <InputLabel id="demo-simple-gh-label">Атрибут продуктов</InputLabel>
-                <Select
-                labelId="demo-simple-gh-label"
-                id="demo-simple-select"
-                value={isProductsAttribute}
-                onChange={e => {
-                    setIsProductsAttribute(newData?.product_attribute);
-                    setNewData(prev => ({
-                    ...prev, product_attribute
-                         : e.target.value
-                                }))
-                                }}
-                                >
-                                    {
-                    productsAttribute?.map((name) => (
-                      <MenuItem 
-                        key={name.id} 
-                        value={name.name}>
-                          {name.name}
-                        </MenuItem>
-                    ))
-                  }   
-
-                  </Select>
-            </FormControl> */}
             </div>
           <Button
             style={{ float: "right", marginTop: "10px", padding: "10px 70px" }}
