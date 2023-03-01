@@ -12,6 +12,7 @@ import { fetchCategoriesAction } from "./store/categoriesReducer/actions";
 import { categoriesAlgo } from "./helper/categoryHelper";
 
 function App() {
+  
   const isLoading = useSelector((state) => state.app.isLoading);
   const dispatch = useDispatch();
   const { themeType, setTheme } = useTheme();
