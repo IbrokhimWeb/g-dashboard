@@ -45,7 +45,6 @@ const SliderAdd = (props) => {
   console.log(newData);
   const [categories, setCategories] = useState(null);
   const [products, setProducts] = useState(null);
-  const [isCategories, setIsCategories] = useState(newData?.category);
   const classes = useStyles(props);
 
   const handleSubmit = async () => {
@@ -66,6 +65,13 @@ const SliderAdd = (props) => {
     $host
       .get("dashboard/products/")
       .then((res) => setProducts(res.data.results))
+      .catch((error) => console.error(error));
+  }, []);
+
+  useEffect(() => {
+    $host
+      .get(`/dashboard/product-inventors/${params.id}/`)
+      .then((res) => setNewData(res.data))
       .catch((error) => console.error(error));
   }, []);
 
@@ -171,9 +177,8 @@ const SliderAdd = (props) => {
                 <Select
                   labelId="product_type"
                   id="demo-simple-select"
-                  value={isCategories}
+                  value={newData.product_type}
                   onChange={(e) => {
-                    setIsCategories(e.target.value);
                     setNewData((prev) => ({
                       ...prev,
                       product_type: e.target.value,
@@ -194,10 +199,9 @@ const SliderAdd = (props) => {
                 <InputLabel id="product">product</InputLabel>
                 <Select
                   labelId="product"
-                  id="demo-simple-select"
-                  value={isCategories}
+                  id="demo-simple-select2"
+                  value={+newData?.product}
                   onChange={(e) => {
-                    setIsCategories(e.target.value);
                     setNewData((prev) => ({
                       ...prev,
                       product: e.target.value,

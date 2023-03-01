@@ -107,13 +107,6 @@ const CategoriesList = memo(({ search }) => {
       .catch((error) => console.error(error));
   }, [reload]);
 
-  const parent = (id) => {
-    const parents = [];
-    categories.filter((e) => parents.push(e.name));
-    console.log(parents + "parents");
-    return "parent";
-  };
-
   const handleRemuve = (id) => {
     $host
       .delete(`dashboard/categories/${id}/`)
@@ -129,14 +122,11 @@ const CategoriesList = memo(({ search }) => {
       <ResponsiveTable className={classes.table}>
         <TableHead>
           <TableRow>
-            <TableCell padding="checkbox">
-              <Checkbox />
-            </TableCell>
-            <TableCell style={{ width: "30px" }}>id</TableCell>
-            <TableCell>тип</TableCell>
-            <TableCell>Название категории</TableCell>
-            <TableCell>описание</TableCell>
-            <TableCell>родитель</TableCell>
+            <TableCell style={{ width: "30px" }}>Ид</TableCell>
+            <TableCell>Tип</TableCell>
+            <TableCell>Название</TableCell>
+            <TableCell>Oписание</TableCell>
+            <TableCell>Pодитель</TableCell>
             <TableCell style={{ textAlign: "center" }}>Действия</TableCell>
           </TableRow>
         </TableHead>
@@ -149,25 +139,24 @@ const CategoriesList = memo(({ search }) => {
                   String(item.id)?.toLowerCase().includes(search.toLowerCase())
             )
             .map(
-              (category) =>
+              (category, i) =>
                 // <h1>{category.name}</h1>
                 category.is_active && (
                   <TableRow key={category.id}>
-                    <TableCell padding="checkbox">
-                      <Checkbox />
-                    </TableCell>
-                    <TableCell style={{ width: "30px" }}>
-                      {category.id}
-                    </TableCell>
+                    <TableCell style={{ width: "30px" }}>{i + 1}</TableCell>
                     <TableCell
                       onClick={() => navigate(`/category/${category.id}`)}
                     >
                       {category.name}
                     </TableCell>
                     <TableCell>{category.slug}</TableCell>
-                    <TableCell>{category.description}</TableCell>
                     <TableCell>
-                      {category.parent ? parent(category.tree_id) : "-"}
+                      {category.description.length > 23
+                        ? category.description.charAt()
+                        : category.description}
+                    </TableCell>
+                    <TableCell>
+                      {category.parent ? category.name : "-"}
                     </TableCell>
                     <TableCell
                       style={{

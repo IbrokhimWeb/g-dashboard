@@ -2,8 +2,11 @@ import {
   Button,
   Card,
   Checkbox,
+  FormControl,
+  InputLabel,
   makeStyles,
   MenuItem,
+  Select,
   TextField,
 } from "@material-ui/core";
 import { Autocomplete, Backlink } from "@saleor/macaw-ui";
@@ -35,18 +38,20 @@ const CategoriesAdd = (props) => {
     slug: "",
     description: "",
     is_active: false,
+    parent: null,
   });
   const handleChange = ({ name, value }) => {
     setNewData((prevData) => ({ ...prevData, [name]: value }));
   };
 
   const handleSubmit = async () => {
+    console.log(newData);
     const formData = new FormData();
     formData.append("name", newData.name);
     formData.append("slug", newData.slug);
     formData.append("description", newData.description);
     formData.append("is_active", newData.is_active);
-    formData.append("parent", 2);
+    formData.append("parent", newData.parent);
     formData.append("background_image", file);
     const res = await $host.post(`/dashboard/categories/`, formData);
     res?.statusText ? navigate("/categories") : alert("Nimadir hato ketdi");
@@ -67,6 +72,7 @@ const CategoriesAdd = (props) => {
               value={newData?.name}
               onChange={(e) => handleChange(e.target)}
             />
+            <FormSpacer />
             <TextField
               fullWidth
               label={"slug категории"}
@@ -78,7 +84,7 @@ const CategoriesAdd = (props) => {
             <TextField
               multiline
               fullWidth
-              label="description категории"
+              label="Описание категории"
               name="description"
               value={newData?.description}
               onChange={(e) => handleChange(e.target)}
@@ -91,7 +97,7 @@ const CategoriesAdd = (props) => {
             />
             Активный <br />
             <Button variant="contained" component="label">
-              Upload File
+              Выберите изображение
               <input
                 type="file"
                 onChange={(e) => setFile(e.target.files[0])}
@@ -99,40 +105,39 @@ const CategoriesAdd = (props) => {
                 hidden
               />
             </Button>
-            <span style={{ marginLeft: "10px" }}>
-              {file ? file.name : "Выберите изображение"}
-            </span>
+            <span style={{ marginLeft: "10px" }}>{file ? file.name : ""}</span>
           </div>
         </Card>
         <CardSpacer />
+
         <Card>
           <CardTitle title={"Родительское категория"} />
           <div className={classes.mainCardInfo}>
-            <Autocomplete
-              fullWidth
-              choices={categories}
-              onChange={(e) => console.log(e)}
-              label="Родительское категория"
-            >
-              {({ highlightedIndex, getItemProps }) =>
-                categories.map(
-                  (category, i) =>
-                    category.isParent && (
-                      <MenuItem
-                        selected={highlightedIndex === i}
-                        {...getItemProps({
-                          item: category,
-                          index: i,
-                        })}
-                      >
-                        {category.name}
-                      </MenuItem>
-                    )
-                )
-              }
-            </Autocomplete>
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-gh-label">
+                Родительское категория
+              </InputLabel>
+              <Select
+                labelId="demo-simple-gh-label"
+                id="demo-simple-select"
+                value={newData.parent}
+                onChange={(e) => {
+                  setNewData((prev) => ({
+                    ...prev,
+                    parent: e.target.value,
+                  }));
+                }}
+              >
+                {categories?.map((e) => (
+                  <MenuItem key={e.id} value={e.id}>
+                    {e.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </div>
         </Card>
+
         <Button
           style={{ float: "right", marginTop: "10px", padding: "10px 70px" }}
           variant="contained"

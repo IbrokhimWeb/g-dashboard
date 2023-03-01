@@ -1,4 +1,15 @@
-import { Box, Button, Card, Checkbox, FormControl, InputLabel, makeStyles, MenuItem, Select, TextField } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  Card,
+  Checkbox,
+  FormControl,
+  InputLabel,
+  makeStyles,
+  MenuItem,
+  Select,
+  TextField,
+} from "@material-ui/core";
 import { Backlink } from "@saleor/macaw-ui";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -15,49 +26,50 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 const BrandsEdit = (props) => {
-  const params = useParams()
+  const params = useParams();
   const navigate = useNavigate();
   const [newData, setNewData] = useState(null);
   console.log(newData);
   const [categories, setCategories] = useState(null);
   const [products, setProducts] = useState(null);
-  const [age, setAge] = React.useState(newData?.status);
-  const [isCategories, setIsCategories] = useState(newData?.category);
-  const [isProducts, SetIsProducts] = useState(newData?.product);
   const classes = useStyles(props);
 
   const handleSubmit = async () => {
     const formData = new FormData();
-        formData.append("url", newData.url);
-        formData.append("category", newData.category);
-        formData.append("product", newData.product);
-        formData.append("images", newData.images);
+    formData.append("url", newData.url);
+    formData.append("category", newData.category ? newData.category : "");
+    formData.append("product", newData.product ? newData.product : "");
+    formData.append("images", newData.images);
 
     const res = await $host.put(`/dashboard/brands/${params.id}/`, formData);
     res?.statusText ? navigate("/brands") : alert("Nimadir hato ketdi");
   };
 
-  useEffect(() =>
-    $host.get(`/dashboard/brands/${params.id}/`)
-      .then((res) => setNewData(res.data))
-      .catch((error) => console.error(error))
-    , []);
+  useEffect(
+    () =>
+      $host
+        .get(`/dashboard/brands/${params.id}/`)
+        .then((res) => setNewData(res.data))
+        .catch((error) => console.error(error)),
+    []
+  );
 
   useEffect(() => {
-    $host.get("dashboard/categories/")
+    $host
+      .get("dashboard/categories/")
       .then((res) => setCategories(res.data.results))
-      .catch((error) => console.error(error))
+      .catch((error) => console.error(error));
   }, []);
 
   useEffect(() => {
-    $host.get("dashboard/products/")
-        .then((res) => setProducts(res.data.results))
-        .catch((error) => console.error(error))
-}, []);
+    $host
+      .get("dashboard/products/")
+      .then((res) => setProducts(res.data.results))
+      .catch((error) => console.error(error));
+  }, []);
 
-return (
+  return (
     <Container>
       <Backlink onClick={() => navigate("/brands")}>Бренды</Backlink>
       <PageHeader title="Создать новый бренд" />
@@ -70,7 +82,9 @@ return (
               placeholder={"url бренда"}
               name="url"
               value={newData?.url}
-              onChange={(e) => setNewData((prev) => ({ ...prev, url: e.target.value }))}
+              onChange={(e) =>
+                setNewData((prev) => ({ ...prev, url: e.target.value }))
+              }
             />
             <CardSpacer />
             <Box sx={{ minWidth: 120 }}>
@@ -81,9 +95,8 @@ return (
                 <Select
                   labelId="demo-simple-gh-label"
                   id="demo-simple-select"
-                  value={isCategories}
+                  value={+newData?.category}
                   onChange={(e) => {
-                    setIsCategories(e.target.value);
                     setNewData((prev) => ({
                       ...prev,
                       category: e.target.value,
@@ -105,9 +118,8 @@ return (
                 <Select
                   labelId="demo-simple-gh-label"
                   id="demo-simple-select"
-                  value={isProducts}
+                  value={+newData?.product}
                   onChange={(e) => {
-                    SetIsProducts(e.target.value);
                     setNewData((prev) => ({
                       ...prev,
                       product: e.target.value,
@@ -121,14 +133,19 @@ return (
                   ))}
                 </Select>
                 <CardSpacer />
-                <Button  style={{width: "20%"}} component="label">
-                    Upload File
-                    <input
-                        type="file"
-                        onChange={(e) => setNewData(prev => ({...prev, images: e.target.files[0]}))}
-                        multiple
-                        hidden
-                    />
+                <Button style={{ width: "20%" }} component="label">
+                  Upload File
+                  <input
+                    type="file"
+                    onChange={(e) =>
+                      setNewData((prev) => ({
+                        ...prev,
+                        images: e.target.files[0],
+                      }))
+                    }
+                    multiple
+                    hidden
+                  />
                 </Button>
               </FormControl>
             </Box>
