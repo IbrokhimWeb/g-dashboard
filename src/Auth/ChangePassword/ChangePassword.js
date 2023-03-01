@@ -39,6 +39,7 @@ const ChangePassword = (props) => {
       setMessage("Please fill all fields");
       return;
     }
+    
     if (newPassword !== confirmPassword) {
       setMessage("New password and confirm password fields do not match");
       return;
