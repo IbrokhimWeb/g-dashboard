@@ -31,7 +31,7 @@ const ChangePassword = (props) => {
     navigate("/")
 }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Validate input fields
@@ -49,25 +49,10 @@ const ChangePassword = (props) => {
       oldPassword: oldPassword,
       newPassword: newPassword,
     };
-    fetch("/dashboard/change-password/", {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(requestBody),
-    })
-      .then((res) => {
-        if (res.ok) {
-          setMessage("Password changed successfully");
-          setOldPassword("");
-          setNewPassword("");
-          setConfirmPassword("");
-        } else {
-          setMessage("Failed to change password");
-        }
-      })
-      .catch((err) => {
-        setMessage("Failed to change password");
-      });
-  };
+    
+    const res = await $host.put("/dashboard/change-password/", requestBody);
+    res?.statusText ? navigate("/") : alert("Nimadir hato ketdi");
+      };
 
   return (
     <Container>
