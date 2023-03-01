@@ -101,21 +101,28 @@ const CategoriesList = memo(({ search }) => {
   console.log(categories);
 
   useEffect(() => {
-    $host.get("dashboard/categories/")
+    $host
+      .get("dashboard/categories/")
       .then((res) => setCategories(res.data.results))
-      .catch((error) => console.error(error))
+      .catch((error) => console.error(error));
   }, [reload]);
 
   const parent = (id) => {
     const parents = [];
-    categories.filter((e) => !e.parent && parents.push(e.name));
-
-    return parents[id - 1];
+    categories.filter((e) => parents.push(e.name));
+    console.log(parents + "parents");
+    return "parent";
   };
 
   const handleRemuve = (id) => {
-    $host.delete(`dashboard/categories/${id}/`).then((res) => { setReload(prev => prev + 1); console.log(res) }).catch((error) => console.error(error))
-  }
+    $host
+      .delete(`dashboard/categories/${id}/`)
+      .then((res) => {
+        setReload((prev) => prev + 1);
+        console.log(res);
+      })
+      .catch((error) => console.error(error));
+  };
 
   return (
     <div className={classes.tableContainer}>
@@ -139,7 +146,7 @@ const CategoriesList = memo(({ search }) => {
               search?.toLowerCase() === ""
                 ? item
                 : item.name?.toLowerCase().includes(search?.toLowerCase()) ||
-                String(item.id)?.toLowerCase().includes(search.toLowerCase())
+                  String(item.id)?.toLowerCase().includes(search.toLowerCase())
             )
             .map(
               (category) =>
@@ -149,23 +156,45 @@ const CategoriesList = memo(({ search }) => {
                     <TableCell padding="checkbox">
                       <Checkbox />
                     </TableCell>
-                    <TableCell style={{ width: "30px" }}>{category.id}</TableCell>
-                    <TableCell onClick={() => navigate(`/category/${category.id}`)}>{category.name}</TableCell>
+                    <TableCell style={{ width: "30px" }}>
+                      {category.id}
+                    </TableCell>
+                    <TableCell
+                      onClick={() => navigate(`/category/${category.id}`)}
+                    >
+                      {category.name}
+                    </TableCell>
                     <TableCell>{category.slug}</TableCell>
                     <TableCell>{category.description}</TableCell>
                     <TableCell>
                       {category.parent ? parent(category.tree_id) : "-"}
                     </TableCell>
-                    <TableCell style={{ width: "100%", display: "flex", alignItems: "center", gap: "5px", justifyContent: "center" }}>
-                      <ion-icon onClick={() => navigate(`/category/edit/${category.id}`)} name="create-outline"></ion-icon>
-                      <ion-icon onClick={() => handleRemuve(category.id)} name="trash-outline"></ion-icon>
+                    <TableCell
+                      style={{
+                        width: "100%",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "5px",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <ion-icon
+                        onClick={() =>
+                          navigate(`/category/edit/${category.id}`)
+                        }
+                        name="create-outline"
+                      ></ion-icon>
+                      <ion-icon
+                        onClick={() => handleRemuve(category.id)}
+                        name="trash-outline"
+                      ></ion-icon>
                     </TableCell>
                   </TableRow>
                 )
             )}
         </TableBody>
       </ResponsiveTable>
-    </div >
+    </div>
   );
 });
 
