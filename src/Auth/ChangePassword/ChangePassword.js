@@ -19,60 +19,77 @@ const useStyles = makeStyles(
     })
 );
 
+const ChangePassword = (props) => {
+  const classes = useStyles(props);
+  const navigate = useNavigate();
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [message, setMessage] = useState("");
 
+  const sendToPreviousURL = () => {
+    navigate("/")
+}
 
-const PhoneEdit = (props) => {
-    const navigate = useNavigate()
-    const params = useParams();
-    const [data, setData] = useState(null);
-    const classes = useStyles(props);
- 
-    const sendToPreviousURL = () => {
-        navigate("/phone-site-settings")
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Validate input fields
+    if (!oldPassword || !newPassword || !confirmPassword) {
+      setMessage("Please fill all fields");
+      return;
+    }
+    if (newPassword !== confirmPassword) {
+      setMessage("New password and confirm password fields do not match");
+      return;
     }
 
-    useEffect(() => {
-        (async () =>
-            await $host.get(`dashboard/phone-site-settings/`)
-                .then((res) => setData({ ...res.data.results.find(e => e.id === +params.id) }))
-                .catch((error) => console.error(error))
-        )();
-    }, []);
-
-    const handleChange = ({ name, value }) => {
-        setData(prevData => ({ ...prevData, [name]: value }))
-    }
-
-
-    const handleEdit = async () => {
-        const formData = new FormData();
-        formData.append('phonenumbers', data.phonenumbers);
-        formData.append('site_type', data.site_type);
-        const res = await $host.patch(`/dashboard/phone-site-settings/${params?.id}/`, formData)
-        res?.statusText ? navigate("/phone-site-settings") : alert("Nimadir hato ketdi");
-
-
+    // Make PUT request to server
+    const requestBody = {
+      oldPassword: oldPassword,
+      newPassword: newPassword,
     };
+    fetch("/dashboard/change-password/", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(requestBody),
+    })
+      .then((res) => {
+        if (res.ok) {
+          setMessage("Password changed successfully");
+          setOldPassword("");
+          setNewPassword("");
+          setConfirmPassword("");
+        } else {
+          setMessage("Failed to change password");
+        }
+      })
+      .catch((err) => {
+        setMessage("Failed to change password");
+      });
+  };
 
-
-
-    return (
-        <Container>
-            <PageHeader title="Настройки аккаунта" />
-            <div>
-                <Card>
-                    <CardTitle title={"Основная информация"} />
-                    <div className={classes.mainCardInfo}>
-                        <TextField fullWidth placeholder={"Новый пароль"} name="phonenumbers" value={data?.phonenumbers} onChange={(e) => handleChange(e.target)} />
-                        <FormSpacer />
-                        <TextField fullWidth placeholder={"Повторите новый пароль"} name="site_type" value={data?.site_type} onChange={(e) => handleChange(e.target)} />
-                    </div>
+  return (
+    <Container>
+        <Backlink onClick={() => sendToPreviousURL()}>Главная</Backlink>
+        <PageHeader title="Редактировать аккаунт" />
+        <div>
+            <Card>
+                <CardTitle title={"Настройки аккаунта"} />
+                <div className={classes.mainCardInfo}>
+                <TextField type="password" fullWidth placeholder={"Старый пароль"} value={oldPassword} onChange={(e) => setOldPassword(e.target.value)} />
+                <FormSpacer />
+                <TextField type="password" fullWidth placeholder={"Новый пароль"} value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
+                <FormSpacer />
+                <TextField type="password" fullWidth placeholder={"Подтвердить пароль"} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                </div>
+                {message && <p>{message}</p>}
                 </Card>
                 <CardSpacer />
-                <Button onClick={handleEdit}>Сохранить</Button>
+                <Button type="submit" onClick={handleSubmit}>Сохранить</Button>
             </div>
         </Container>
     );
 }
 
-export default PhoneEdit;
+export default ChangePassword;
