@@ -37,10 +37,11 @@ const ProductTypeAdd = (props) => {
   });
   console.log(newData);
   const [productsTypeAttribute, setProductsTypeAttribute] = useState(null);
+  const [isProductsTypeAttribute, setIsProductsTypeAttribute] = useState(newData?.product_type_attribute)
   const classes = useStyles(props);
 
   const handleSubmit = async () => {
-    const res = await $host.put(`dashboard/product-type/${params.id}`,newData);
+    const res = await $host.put(`dashboard/product-type/${params.id}/`,newData);
     res?.statusText ? navigate("/product-type") : alert("Nimadir hato ketdi");
   };
 
@@ -79,27 +80,26 @@ const ProductTypeAdd = (props) => {
             />
             <CardSpacer />
             <FormControl fullWidth>
-              <InputLabel id="demo-simple-gh-label">
-                Тип аттрибутов продукта
-              </InputLabel>
-              <Select
-                labelId="demo-simple-gh-label"
-                id="demo-simple-select"
-                value={newData?.product_type_attribute}
-                onChange={(e) => {
-                  setNewData((prev) => ({
-                    ...prev,
-                    product_type_attribute: e.target.value,
-                  }));
-                }}
-              >
-                {productsTypeAttribute?.map((name) => (
-                  <MenuItem key={name.id} value={name.id}>
-                    {name.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+                <InputLabel id="product_type_attribute">product_type</InputLabel>
+                <Select
+                  labelId="product_type_attribute"
+                  id="demo-simple-select"
+                  value={isProductsTypeAttribute}
+                  onChange={(e) => {
+                    setIsProductsTypeAttribute(e.target.value);
+                    setNewData((prev) => ({
+                      ...prev,
+                      product_type_attributes: e.target.value,
+                    }));
+                  }}
+                >
+                  {productsTypeAttribute?.map(({ id }) => (
+                    <MenuItem key={id} value={id}>
+                      {id}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
             <FormSpacer />
           </div>
         </Card>

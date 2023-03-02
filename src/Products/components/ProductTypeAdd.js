@@ -40,7 +40,7 @@ const ProductTypeAdd = (props) => {
   const classes = useStyles(props);
 
   const handleSubmit = async () => {
-    const res = await $host.put(
+    const res = await $host.post(
       "dashboard/product-type/",
       //   {
       //     product_type_attributes: {
@@ -80,9 +80,9 @@ const ProductTypeAdd = (props) => {
             />
             <CardSpacer />
             <FormControl fullWidth>
-                <InputLabel id="product_type">product_type</InputLabel>
+                <InputLabel id="product_type_attribute">product_type</InputLabel>
                 <Select
-                  labelId="product_type"
+                  labelId="product_type_attribute"
                   id="demo-simple-select"
                   value={isProductsTypeAttribute}
                   onChange={(e) => {
@@ -93,9 +93,9 @@ const ProductTypeAdd = (props) => {
                     }));
                   }}
                 >
-                  {productsTypeAttribute?.map(({ name, id }) => (
+                  {productsTypeAttribute?.map(({ id }) => (
                     <MenuItem key={id} value={id}>
-                      {name}
+                      {id}
                     </MenuItem>
                   ))}
                 </Select>
