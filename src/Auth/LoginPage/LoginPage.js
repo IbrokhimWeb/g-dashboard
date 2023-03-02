@@ -53,12 +53,12 @@ const LoginPage = (props) => {
                 </div>
             )}
             <TextField
+                fullWidth
                 autoComplete="username"
                 label={'Номер телефона'}
                 name="number"
                 onChange={(e) => setNumber(e.target.value)}
                 value={number}
-                style={{width: "30%"}}
             />
             <FormSpacer/>
             <div className={classes.passwordWrapper}>
@@ -79,14 +79,15 @@ const LoginPage = (props) => {
                     <EyeIcon/>
                 </IconButton>
             </div>
-            <Typography
+            {/* <Typography
                 // component={Link}
                 className={classes.link}
                 // to={passwordResetUrl}
                 variant="body2"
             >
                 Забыли пароль!
-            </Typography>
+            </Typography> */}
+            <FormSpacer />
             <div className={classes.buttonContainer}>
                 <Button
                     className={classes.loginButton}
