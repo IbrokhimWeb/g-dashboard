@@ -48,7 +48,7 @@ const SliderAdd = (props) => {
   const classes = useStyles(props);
 
   const handleSubmit = async () => {
-    const res = await $host.post(`dashboard/product-inventors/`, newData);
+    const res = await $host.put(`dashboard/product-inventors/${params.id}`, newData);
     res?.statusText
       ? navigate("/product-inventors")
       : alert("Nimadir hato ketdi");

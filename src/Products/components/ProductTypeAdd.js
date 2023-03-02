@@ -32,28 +32,22 @@ const ProductTypeAdd = (props) => {
   const navigate = useNavigate();
   const [newData, setNewData] = useState({
     name: "",
-    product_type_attribute: 0,
+    product_type_attribute: null,
   });
   console.log(newData);
   const [productsTypeAttribute, setProductsTypeAttribute] = useState(null);
-  console.log(productsTypeAttribute);
-  const [isProductsTypeAttribute, setIsProductsTypeAttribute] = useState(
-    newData?.product_type_attribute
-  );
+  const [isProductsTypeAttribute, setIsProductsTypeAttribute] = useState(newData?.category);
   const classes = useStyles(props);
 
   const handleSubmit = async () => {
-    const formData = new FormData();
-    formData.append("name", newData.name);
-    formData.append("product_type_attribute", newData.product_type_attribute);
-    const res = await $host.post(
-      `/dashboard/product-type/`,
+    const res = await $host.put(
+      "dashboard/product-type/",
       //   {
       //     product_type_attributes: {
       //       name: newData.product_type_attribute,
       //     },
       //   }
-      formData
+      newData
     );
     res?.statusText ? navigate("/product-type") : alert("Nimadir hato ketdi");
   };
@@ -86,28 +80,26 @@ const ProductTypeAdd = (props) => {
             />
             <CardSpacer />
             <FormControl fullWidth>
-              <InputLabel id="demo-simple-gh-label">
-                Тип аттрибутов продукта
-              </InputLabel>
-              <Select
-                labelId="demo-simple-gh-label"
-                id="demo-simple-select"
-                value={isProductsTypeAttribute}
-                onChange={(e) => {
-                  setIsProductsTypeAttribute(e.target.value);
-                  setNewData((prev) => ({
-                    ...prev,
-                    product_type_attribute: e.target.value,
-                  }));
-                }}
-              >
-                {productsTypeAttribute?.map((name) => (
-                  <MenuItem key={name.id} value={name.id}>
-                    {name.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+                <InputLabel id="product_type">product_type</InputLabel>
+                <Select
+                  labelId="product_type"
+                  id="demo-simple-select"
+                  value={isProductsTypeAttribute}
+                  onChange={(e) => {
+                    setIsProductsTypeAttribute(e.target.value);
+                    setNewData((prev) => ({
+                      ...prev,
+                      product_type_attribute: e.target.value,
+                    }));
+                  }}
+                >
+                  {productsTypeAttribute?.map(({ name, id }) => (
+                    <MenuItem key={id} value={id}>
+                      {name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
             <FormSpacer />
           </div>
         </Card>

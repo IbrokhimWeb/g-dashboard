@@ -53,7 +53,7 @@ const SliderAdd = (props) => {
             <TextField
               type="url"
               fullWidth
-              label={"Название Слайдеры"}
+              placeholder="Название Слайдеры"
               name="name"
               value={parent.url}
               onChange={(e) =>
