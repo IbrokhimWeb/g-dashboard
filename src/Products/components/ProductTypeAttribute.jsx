@@ -139,7 +139,7 @@ const ProductTypeAttributes = (props) => {
                       }}
                     >
                       <ion-icon
-                        onClick={() => {}}
+                        onClick={() => navigate(`/product-type-attribute/edit/${id}`)}
                         name="create-outline"
                       ></ion-icon>
                       <ion-icon

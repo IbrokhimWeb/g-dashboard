@@ -26,8 +26,9 @@ import Brand from "./Products/components/Brand";
 import ProductInventors from "./Products/components/ProductInventors";
 import ProductMedia from "./Products/components/ProductMedia";
 import ProductStocks from "./Products/components/ProductStocks";
-import ProductTypeAttributes from "./Products/components/ProductTypeAttribute";
-import ProductTypeAttributesAdd from "./Products/components/ProductTypeAttributeAdd";
+import ProductTypeAttribute from "./Products/components/ProductTypeAttribute";
+import ProductTypeAttributeAdd from "./Products/components/ProductTypeAttributeAdd";
+import ProductTypeAttributeEdit from "./Products/components/ProductTypeAttributesEdit"
 import ProductType from "./Products/components/ProductType";
 import ProductTypeAdd from "./Products/components/ProductTypeAdd";
 import ProductTypeEdit from "./Products/components/ProductTypeEdit";
@@ -101,11 +102,15 @@ const AppRoutes = () => {
 
           <Route
             path="product-type-attribute"
-            element={<ProductTypeAttributes />}
+            element={<ProductTypeAttribute />}
           />
           <Route
             path="product-type-attribute/add"
-            element={<ProductTypeAttributesAdd />}
+            element={<ProductTypeAttributeAdd />}
+          />
+          <Route
+            path="product-type-attribute/edit/:id"
+            element={<ProductTypeAttributeEdit />}
           />
 
           <Route path="product-type" element={<ProductType />} />

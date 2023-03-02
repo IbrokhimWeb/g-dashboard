@@ -8,7 +8,7 @@ import {
 } from "@material-ui/core";
 import { Backlink } from "@saleor/macaw-ui";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Container from "../../components/Container";
 import PageHeader from "../../components/PageHeader";
 import $host from "../../http";
@@ -21,7 +21,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ProductTypeAttributeAdd = (props) => {
+const ProductAttributesEdit = (props) => {
+    const params = useParams();
   const navigate = useNavigate();
   const [newData, setNewData] = useState({
     product_attributes: {
@@ -34,9 +35,9 @@ const ProductTypeAttributeAdd = (props) => {
     product_attribute: 0,
     product_type: 0,
   });
+  console.log(newData);
   const [productsType, setProductsType] = useState(null);
   const [productsAttribute, setProductsAttribute] = useState(null);
-
   const classes = useStyles(props);
 
   const handleSubmit = async () => {
@@ -60,18 +61,25 @@ const ProductTypeAttributeAdd = (props) => {
       .catch((error) => console.error(error));
   }, []);
 
+  useEffect(() => {
+    $host
+      .get(`/dashboard/product-type-attribute/${params.id}/`)
+      .then((res) => setNewData(res.data))
+      .catch((error) => console.error(error));
+  }, []);
+
   return (
     <Container>
       <Backlink onClick={() => navigate("/product-type-attribute")}>
         Тип аттрибутов продукта
       </Backlink>
-      <PageHeader title="Создать новый тип аттрибутов продукта" />
+      <PageHeader title="Редактировать тип аттрибутов продукта" />
       <div>
         <div className={classes.mainCardInfo}>
           <FormControl fullWidth>
-            <InputLabel id="demo-simple-gh-label">Атрибут продуктов</InputLabel>
+            <InputLabel id="product_attribute">Атрибут продукта</InputLabel>
             <Select
-              labelId="demo-simple-gh-label"
+              labelId="product_attribute"
               id="demo-simple-select"
               value={newData.product_attribute}
               onChange={(e) => {
@@ -90,11 +98,11 @@ const ProductTypeAttributeAdd = (props) => {
           </FormControl>
           <FormSpacer />
           <FormControl fullWidth>
-            <InputLabel id="demo-simple-gh-label">Тип продуктов</InputLabel>
+            <InputLabel id="product_type">Тип продуктов</InputLabel>
             <Select
-              labelId="demo-simple-gh-label"
+              labelId="product_type"
               id="demo-simple-select"
-              value={newData.product_type}
+              value={+newData?.product_type}
               onChange={(e) => {
                 setNewData((prev) => ({
                   ...prev,
@@ -122,4 +130,4 @@ const ProductTypeAttributeAdd = (props) => {
   );
 };
 
-export default ProductTypeAttributeAdd;
+export default ProductAttributesEdit;
