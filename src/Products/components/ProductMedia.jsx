@@ -125,9 +125,17 @@ const ProductMedia = (props) => {
                       <img height={40} src={img_url} alt="" />
                     </TableCell>
                     <TableCell>{alt_text}</TableCell>
-                    <TableCell style={{ width: "50%" }}>{created_at}</TableCell>
+                    <TableCell style={{ width: "50%" }}>{new Date(created_at).toLocaleDateString("ru-RU", {
+                      month: "long",
+                      day: "numeric",
+                      year: "numeric",
+                    })}</TableCell>
                     <TableCell style={{ width: "50%" }}>
-                      {updated_at}{" "}
+                    {new Date(created_at).toLocaleDateString("ru-RU", {
+                      month: "long",
+                      day: "numeric",
+                      year: "numeric",
+                    })}{" "}
                     </TableCell>
                     <TableCell
                       style={{

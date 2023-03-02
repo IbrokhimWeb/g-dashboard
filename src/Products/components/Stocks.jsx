@@ -104,11 +104,11 @@ const FilterBar = (props) => {
                     <TableContainer className={classes.table}>
                         <TableHead>
                             <TableRow >
-                                <TableCell>#</TableCell>
+                                <TableCell style={{}}>#</TableCell>
                                 <TableCell>Images</TableCell>
                                 <TableCell >created_at</TableCell>
                                 <TableCell style={{ textAligin: "center" }}>updated_at  </TableCell>
-                                <TableCell style={{ textAligin: "center" }}>Deystvya  </TableCell>
+                                <TableCell style={{ width: "5%" }}>Deystvya  </TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -127,15 +127,23 @@ const FilterBar = (props) => {
                                         <TableCell >
                                             <img height={45} src={images} alt="" />
                                         </TableCell>
-                                        <TableCell style={{ width: "акции0%" }} > {created_at} </TableCell>
-                                        <TableCell> {updated_at} </TableCell>
+                                        <TableCell style={{ width: "акции0%" }} > {new Date(created_at).toLocaleDateString("ru-RU", {
+                      month: "long",
+                      day: "numeric",
+                      year: "numeric",
+                    })} </TableCell>
+                                        <TableCell> {new Date(updated_at).toLocaleDateString("ru-RU", {
+                      month: "long",
+                      day: "numeric",
+                      year: "numeric",
+                    })}</TableCell>
                                         <TableCell
                                             style={{
                                                 width: "100%",
                                                 display: "flex",
                                                 alignItems: "center",
                                                 gap: "5px",
-                                                justifyContent: "center"
+                                                justifyContent: "right"
                                             }}
                                         >
                                             <ion-icon

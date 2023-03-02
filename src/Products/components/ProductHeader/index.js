@@ -85,10 +85,10 @@ const FilterBar = (props) => {
           <TableRow>
             <TableCell>#</TableCell>
             <TableCell>Имя</TableCell>
-            <TableCell>Создать в</TableCell>
-            <TableCell>Обновить</TableCell>
-            <TableCell style={{ textAlign: "center" }}>Положение дел</TableCell>
-            <TableCell style={{ textAligin: "center" }}>Действия</TableCell>
+            <TableCell style={{ textAlign: "center", width: "50%" }}>Создать в</TableCell>
+            <TableCell style={{ textAlign: "center", width: "50%" }}>Обновить</TableCell>
+            <TableCell style={{ textAlign: "center", width: "50%" }}>Положение дел</TableCell>
+            <TableCell style={{ textAligin: "center", width: "50%"}}>Действия</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -106,8 +106,16 @@ const FilterBar = (props) => {
                 <TableRow key={id}>
                   <TableCell> {id} </TableCell>
                   <TableCell onClick={() => navigate(`/products/${id}`)}> {name} </TableCell>
-                  <TableCell> {created_at} </TableCell>
-                  <TableCell> {updated_at} </TableCell>
+                  <TableCell style={{ textAlign: "center", width: "50%" }}> {new Date(created_at).toLocaleDateString("ru-RU", {
+                      month: "long",
+                      day: "numeric",
+                      year: "numeric",
+                    })}</TableCell>
+                  <TableCell style={{ textAlign: "center", width: "50%" }}> {new Date(updated_at).toLocaleDateString("ru-RU", {
+                      month: "long",
+                      day: "numeric",
+                      year: "numeric",
+                    })} </TableCell>
                   <TableCell style={{ textAlign: "center" }}> {status} </TableCell>
                   <TableCell
                     style={{

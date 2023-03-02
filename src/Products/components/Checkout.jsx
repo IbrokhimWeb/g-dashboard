@@ -109,8 +109,8 @@ const FilterBar = (props) => {
                                 <TableCell >Phone</TableCell>
                                 <TableCell style={{ textAligin: "center" }}>Payme</TableCell>
                                 <TableCell style={{ textAligin: "center" }}>Naxt</TableCell>
-                                <TableCell style={{ textAligin: "center" }}>Create_at</TableCell>
-                                <TableCell style={{ textAligin: "center" }}>Destvya</TableCell>
+                                <TableCell style={{ textAligin: "center", width: "30%" }}>Create_at</TableCell>
+                                <TableCell style={{ textAligin: "center", width:"10%" }}>Destvya</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -134,7 +134,11 @@ const FilterBar = (props) => {
                                         <TableCell>
                                             <Checkbox />
                                         </TableCell>
-                                        <TableCell>{created_at}</TableCell>
+                                            <TableCell style={{width: "30%"}}>{new Date(created_at).toLocaleDateString("ru-RU", {
+                        month: "long",
+                        day: "numeric",
+                        year: "numeric",
+                        })}</TableCell>
                                         <TableCell
                                             style={{
                                                 width: "100%",
