@@ -36,17 +36,17 @@ import { formToJSON } from "axios";
     const [productsTypeAttribute, setProductsTypeAttribute] = useState(null);
     const [isProductsTypeAttribute, setIsProductsTypeAttribute] = useState(newData?.product_type_attribute);
     const classes = useStyles(props);
-  
-      const handleSubmit = async () => {
-      const res = await $host.put(`/dashboard/product-type/${params.id}/`, 
-    //   {
-    //     product_type_attributes: {
-    //       name: newData.product_type_attribute,
-    //     },
-    //   }
-    newData);
+
+
+  const handleEdit = async () => {
+      const formData = new FormData();
+      formData.append("name", newData.name);
+      formData.append('product_type_attribute', newData.product_type_attribute);
+      const res = await $host.patch(`/dashboard/product-type/${params?.id}/`, formData)
       res?.statusText ? navigate("/product-type") : alert("Nimadir hato ketdi");
-    };
+
+
+  };
   
     useEffect(() => {
       $host
@@ -63,13 +63,9 @@ import { formToJSON } from "axios";
         <Card>
         <CardTitle title={"Основная информация"} />
                     <div className={classes.mainCardInfo}>
-                        <TextField 
-                        fullWidth 
-                        placeholder={"Название"} 
-                        name="name" 
-                        value={newData?.name} 
-                        onChange={(e) => setNewData(prev => ({ ...prev, name: e.target.value }))} />
-                        <CardSpacer />
+                    <TextField fullWidth placeholder={"Name"} name="name" value={newData?.name} onChange={(e) =>
+                setNewData((prev) => ({ ...prev, name: e.target.value }))} />
+          <CardSpacer />
           <FormControl fullWidth>
                 <InputLabel id="demo-simple-gh-label">Тип аттрибутов продукта</InputLabel>
                 <Select
@@ -102,7 +98,7 @@ import { formToJSON } from "axios";
           <Button
             style={{ float: "right", marginTop: "10px", padding: "10px 70px" }}
             variant="contained"
-            onClick={handleSubmit}
+            onClick={handleEdit}
           >
             Save
           </Button>

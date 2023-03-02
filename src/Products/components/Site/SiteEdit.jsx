@@ -48,6 +48,7 @@ const SiteEdit = (props) => {
         const formData = new FormData();
         formData.append('link', data.link);
         formData.append('description', data.description);
+        formData.append('logo', data.logo);
         const res = await $host.patch(`/dashboard/site-settings/${params?.id}/`, formData)
         res?.statusText ? navigate("/site-settings") : alert("Nimadir hato ketdi");
 
@@ -67,6 +68,21 @@ const SiteEdit = (props) => {
                         <TextField fullWidth placeholder={"Ссылка"} name="link" value={data?.link} onChange={(e) => handleChange(e.target)} />
                         <FormSpacer />
                         <TextField fullWidth placeholder={"Описание"} name="description" value={data?.description} onChange={(e) => handleChange(e.target)} />
+                        <CardSpacer />
+                        <Button style={{ width: "20%" }} component="label">
+              Upload File
+              <input
+                type="file"
+                onChange={(e) =>
+                  setData((prev) => ({
+                    ...prev,
+                    logo: e.target.files[0],
+                  }))
+                }
+                multiple
+                hidden
+              />
+            </Button>
                     </div>
                 </Card>
                 <CardSpacer />
