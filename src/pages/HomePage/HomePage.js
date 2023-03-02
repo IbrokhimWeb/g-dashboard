@@ -112,7 +112,7 @@ const HomePage = () => {
                     variant="h4"
                     className={classes.salesCardItemInfo}
                   >
-                    PLN0,00
+                    0,00Сум
                   </Typography>
                 </div>
                 <div className={classes.salesCardItemLogo}>
